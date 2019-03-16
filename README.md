@@ -21,8 +21,6 @@
 |  Module Name   |         Module Information          |
 | :------------: | :---------------------------------: |
 | Tiny SpringMVC | 仿SpringMVC，手写一个简易版 MVC框架 |
-|                |                                     |
-|                |                                     |
 
 
 
