@@ -7,10 +7,9 @@
 
 
 
-## Todo List
+## Roadmap
 
-- [ ] Tiny SpringMVC
-
+- [x] tiny-springmvc
 
 
 
@@ -18,9 +17,15 @@
 ## Modules
 
 
-|  Module Name   |         Module Information          |
-| :------------: | :---------------------------------: |
-| Tiny SpringMVC | 仿SpringMVC，手写一个简易版 MVC框架 |
+|  Module Name   |        Module Information         |
+| :------------: | :-------------------------------: |
+| tiny-springmvc | 仿写SpringMVC的一个简易版 MVC框架 |
 
 
+
+## Reference
+
+- **tiny-springmvc**
+    - https://my.oschina.net/liughDevelop/blog/1622646
+    - https://my.oschina.net/lengchuan/blog/1844738
 
