@@ -1,7 +1,9 @@
 package com.github.byference.controller;
 
+import com.github.byference.annotation.TinyAutowired;
 import com.github.byference.annotation.TinyController;
 import com.github.byference.annotation.TinyRequestMapping;
+import com.github.byference.service.TinyService;
 
 /**
  * TinyController
@@ -14,10 +16,14 @@ import com.github.byference.annotation.TinyRequestMapping;
 public class TinyControllerDemo {
 
 
+    @TinyAutowired("TinyServiceImpl")
+    private TinyService tinyService;
+
+
     @TinyRequestMapping("/hello")
     public String hello (String name) {
 
-        return "hello, " + name;
+        return tinyService.echo() + name;
     }
 
 }
