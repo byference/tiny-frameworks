@@ -16,14 +16,14 @@ import com.github.byference.service.TinyService;
 public class TinyControllerDemo {
 
 
-    @TinyAutowired("TinyServiceImpl")
+    @TinyAutowired("tinyServiceImpl")
     private TinyService tinyService;
 
 
     @TinyRequestMapping("/hello")
     public String hello (String name) {
 
-        return tinyService.echo() + name;
+        return tinyService.echo(name);
     }
 
 }

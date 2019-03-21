@@ -141,12 +141,13 @@ public class TinyDispatcherServlet extends HttpServlet {
                         url = url.replaceAll("/+", "/");
                         handlerMapping.put(url, method);
                         try {
-                            String name = clazz.getSimpleName();
+                            String name = lowerFirst(clazz.getSimpleName());
                             Object instance;
                             if (beans.containsKey(name)) {
                                 instance = beans.get(name);
                             } else {
                                 instance = clazz.newInstance();
+                                beans.put(name, instance);
                             }
                             controllerMap.put(url, instance);
                         } catch (InstantiationException | IllegalAccessException e) {
@@ -160,8 +161,9 @@ public class TinyDispatcherServlet extends HttpServlet {
     }
 
     private void autowired() {
+
         if (beans.isEmpty()) {
-            System.out.printf("%s --- [%s] autowired error.\n", LocalDateTime.now(), Thread.currentThread().getName());
+            System.out.printf("%s --- [%s] autowired failed.\n", LocalDateTime.now(), Thread.currentThread().getName());
             return;
         }
 
@@ -172,12 +174,13 @@ public class TinyDispatcherServlet extends HttpServlet {
                 for (Field field : fields) {
                     if (field.isAnnotationPresent(TinyAutowired.class)) {
                         TinyAutowired autowired = field.getAnnotation(TinyAutowired.class);
-                        // String name = field.getName();
-                        String value = autowired.value();
-
+                        String name  = autowired.value();
+                        if (Objects.equals("", name)) {
+                            name = field.getName();
+                        }
                         field.setAccessible(true);
                         try {
-                            field.set(v, beans.get(value));
+                            field.set(v, beans.get(name));
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         }
@@ -195,10 +198,10 @@ public class TinyDispatcherServlet extends HttpServlet {
                 try {
                     Class<?> clazz = Class.forName(name);
                     if (clazz.isAnnotationPresent(TinyController.class)) {
-                        beans.put(clazz.getSimpleName(), clazz.newInstance());
+                        beans.put(lowerFirst(clazz.getSimpleName()), clazz.newInstance());
                     }
                     if (clazz.isAnnotationPresent(TinyComponent.class)) {
-                        beans.put(clazz.getSimpleName(), clazz.newInstance());
+                        beans.put(lowerFirst(clazz.getSimpleName()), clazz.newInstance());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -229,6 +232,12 @@ public class TinyDispatcherServlet extends HttpServlet {
                 classNames.add(className);
             }
         }
+    }
+
+    private static String lowerFirst(String name) {
+        char[] chars = name.toCharArray();
+        chars[0] += 32;
+        return String.valueOf(chars);
     }
 
 

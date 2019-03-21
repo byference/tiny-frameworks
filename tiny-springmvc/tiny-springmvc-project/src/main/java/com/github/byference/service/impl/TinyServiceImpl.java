@@ -11,8 +11,8 @@ import com.github.byference.service.TinyService;
 public class TinyServiceImpl implements TinyService {
 
     @Override
-    public String echo() {
-        return "echo ";
+    public String echo(String name) {
+        return "echo -> " + name;
     }
 
 }

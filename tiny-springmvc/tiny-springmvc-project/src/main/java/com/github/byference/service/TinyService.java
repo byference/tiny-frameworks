@@ -6,5 +6,6 @@ package com.github.byference.service;
  */
 public interface TinyService {
 
-    String echo();
+    String echo(String name);
+
 }
