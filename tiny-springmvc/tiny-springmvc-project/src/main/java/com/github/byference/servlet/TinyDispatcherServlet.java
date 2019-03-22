@@ -166,7 +166,6 @@ public class TinyDispatcherServlet extends HttpServlet {
             System.out.printf("%s --- [%s] autowired failed.\n", LocalDateTime.now(), Thread.currentThread().getName());
             return;
         }
-
         beans.forEach((k, v) -> {
             Class<?> clazz = v.getClass();
             if (clazz.isAnnotationPresent(TinyController.class)){
@@ -201,7 +200,19 @@ public class TinyDispatcherServlet extends HttpServlet {
                         beans.put(lowerFirst(clazz.getSimpleName()), clazz.newInstance());
                     }
                     if (clazz.isAnnotationPresent(TinyComponent.class)) {
-                        beans.put(lowerFirst(clazz.getSimpleName()), clazz.newInstance());
+
+                        Class<?>[] interfaces = clazz.getInterfaces();
+                        for (Class<?> anInterface : interfaces) {
+                            String beanName;
+                            String interfaceSimpleName = anInterface.getSimpleName();
+                            String clazzSimpleName = clazz.getSimpleName();
+                            if (clazzSimpleName.startsWith(interfaceSimpleName)) {
+                                beanName = interfaceSimpleName;
+                            } else {
+                                beanName = clazzSimpleName;
+                            }
+                            beans.put(lowerFirst(beanName), clazz.newInstance());
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

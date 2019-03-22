@@ -16,7 +16,7 @@ import com.github.byference.service.TinyService;
 public class TinyControllerDemo {
 
 
-    @TinyAutowired("tinyServiceImpl")
+    @TinyAutowired
     private TinyService tinyService;
 
 
