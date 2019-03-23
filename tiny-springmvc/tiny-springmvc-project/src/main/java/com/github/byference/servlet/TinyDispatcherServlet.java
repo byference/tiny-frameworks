@@ -201,18 +201,22 @@ public class TinyDispatcherServlet extends HttpServlet {
                     }
                     if (clazz.isAnnotationPresent(TinyComponent.class)) {
 
-                        Class<?>[] interfaces = clazz.getInterfaces();
-                        for (Class<?> anInterface : interfaces) {
-                            String beanName;
-                            String interfaceSimpleName = anInterface.getSimpleName();
-                            String clazzSimpleName = clazz.getSimpleName();
-                            if (clazzSimpleName.startsWith(interfaceSimpleName)) {
-                                beanName = interfaceSimpleName;
-                            } else {
-                                beanName = clazzSimpleName;
+                        TinyComponent tinyComponent = clazz.getAnnotation(TinyComponent.class);
+                        String beanName = tinyComponent.value();
+                        if (Objects.equals("", beanName)) {
+                            Class<?>[] interfaces = clazz.getInterfaces();
+                            for (Class<?> anInterface : interfaces) {
+
+                                String interfaceSimpleName = anInterface.getSimpleName();
+                                String clazzSimpleName = clazz.getSimpleName();
+                                if (clazzSimpleName.startsWith(interfaceSimpleName)) {
+                                    beanName = lowerFirst(interfaceSimpleName);
+                                } else {
+                                    beanName = lowerFirst(clazzSimpleName);
+                                }
                             }
-                            beans.put(lowerFirst(beanName), clazz.newInstance());
                         }
+                        beans.put(beanName, clazz.newInstance());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
