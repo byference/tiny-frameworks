@@ -5,6 +5,7 @@ import com.github.byference.annotation.TinyAutowired;
 import com.github.byference.annotation.TinyComponent;
 import com.github.byference.annotation.TinyController;
 import com.github.byference.annotation.TinyRequestMapping;
+import com.github.byference.handler.HandlerAdapter;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,9 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -77,7 +76,12 @@ public class TinyDispatcherServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        tinyDispatcherServlet(request, response);
+        try {
+            tinyDispatcherServlet(request, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            response.getWriter().write("500: server error!");
+        }
     }
 
     private void tinyDispatcherServlet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -88,32 +92,14 @@ public class TinyDispatcherServlet extends HttpServlet {
             out.write("404: not found!");
             return;
         }
-        Method method = handlerMapping.get(uri);
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        Object[] params = new Object[parameterTypes.length];
 
-        for (int i = 0; i < parameterTypes.length; i++) {
-            String simpleName = parameterTypes[i].getSimpleName();
-            if (Objects.equals(simpleName, "HttpServletRequest")) {
-                params[i] = response;
-                continue;
-            }
-            if (Objects.equals(simpleName, "HttpServletResponse")) {
-                params[i] = response;
-                continue;
-            }
-            if (Objects.equals(simpleName, "String")) {
-                for (Map.Entry<String, String[]> param : parameterMap.entrySet()) {
-                    String value = String.join(",", param.getValue());
-                    params[i] = value;
-                }
-            }
-        }
+        Method method = handlerMapping.get(uri);
+        HandlerAdapter ha = (HandlerAdapter) beans.get("paramHandlerAdapter");
+        Object[] args = ha.handle(request, response, method, beans);
 
         try {
-            Object result = method.invoke(controllerMap.get(uri), params);
-            out.write((String) result);
+            Object result = method.invoke(controllerMap.get(uri), args);
+            out.write(String.valueOf(result));
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -126,13 +112,14 @@ public class TinyDispatcherServlet extends HttpServlet {
             beans.forEach((k, v) -> {
                 Class<?> clazz = v.getClass();
                 if (clazz.isAnnotationPresent(TinyController.class)) {
-                    String url = "";
+                    String baseUrl = "";
                     if (clazz.isAnnotationPresent(TinyRequestMapping.class)) {
                         TinyRequestMapping tinyRequestMapping = clazz.getAnnotation(TinyRequestMapping.class);
-                        url = tinyRequestMapping.value();
+                        baseUrl = tinyRequestMapping.value();
                     }
                     Method[] methods = clazz.getMethods();
                     for (Method method : methods) {
+                        String url = baseUrl;
                         if (!method.isAnnotationPresent(TinyRequestMapping.class)) {
                             continue;
                         }
@@ -163,17 +150,17 @@ public class TinyDispatcherServlet extends HttpServlet {
     private void autowired() {
 
         if (beans.isEmpty()) {
-            System.out.printf("%s --- [%s] autowired failed.\n", LocalDateTime.now(), Thread.currentThread().getName());
+            System.err.printf("%s --- [%s] autowired failed.\n", LocalDateTime.now(), Thread.currentThread().getName());
             return;
         }
         beans.forEach((k, v) -> {
             Class<?> clazz = v.getClass();
-            if (clazz.isAnnotationPresent(TinyController.class)){
+            if (clazz.isAnnotationPresent(TinyController.class)) {
                 Field[] fields = clazz.getDeclaredFields();
                 for (Field field : fields) {
                     if (field.isAnnotationPresent(TinyAutowired.class)) {
                         TinyAutowired autowired = field.getAnnotation(TinyAutowired.class);
-                        String name  = autowired.value();
+                        String name = autowired.value();
                         if (Objects.equals("", name)) {
                             name = field.getName();
                         }
@@ -228,7 +215,7 @@ public class TinyDispatcherServlet extends HttpServlet {
 
     private void loadConfig(String config) {
 
-        try(InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(config)) {
+        try (InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(config)) {
             properties.load(resourceAsStream);
         } catch (IOException e) {
             e.printStackTrace();

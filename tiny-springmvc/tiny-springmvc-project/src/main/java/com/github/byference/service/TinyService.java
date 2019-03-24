@@ -6,6 +6,8 @@ package com.github.byference.service;
  */
 public interface TinyService {
 
-    String echo(String name);
+    String echo();
+
+    String hello(String name, String message);
 
 }
