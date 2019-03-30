@@ -239,7 +239,9 @@ public class TinyDispatcherServlet extends HttpServlet {
 
     private static String lowerFirst(String name) {
         char[] chars = name.toCharArray();
-        chars[0] += 32;
+        if (Character.isUpperCase(chars[0])) {
+            chars[0] += 32;
+        }
         return String.valueOf(chars);
     }
 
