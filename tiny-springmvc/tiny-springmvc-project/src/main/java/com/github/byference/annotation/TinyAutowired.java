@@ -18,9 +18,4 @@ public @interface TinyAutowired {
      */
     boolean required() default true;
 
-    /**
-     * The value may indicate a suggestion for a logical component name.
-     */
-    String value() default "";
-
 }

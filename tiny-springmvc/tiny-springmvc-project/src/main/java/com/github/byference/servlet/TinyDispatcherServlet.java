@@ -1,10 +1,7 @@
 package com.github.byference.servlet;
 
 
-import com.github.byference.annotation.TinyAutowired;
-import com.github.byference.annotation.TinyComponent;
-import com.github.byference.annotation.TinyController;
-import com.github.byference.annotation.TinyRequestMapping;
+import com.github.byference.annotation.*;
 import com.github.byference.handler.HandlerAdapter;
 
 import javax.servlet.ServletConfig;
@@ -159,8 +156,12 @@ public class TinyDispatcherServlet extends HttpServlet {
                 Field[] fields = clazz.getDeclaredFields();
                 for (Field field : fields) {
                     if (field.isAnnotationPresent(TinyAutowired.class)) {
-                        TinyAutowired autowired = field.getAnnotation(TinyAutowired.class);
-                        String name = autowired.value();
+
+                        String name = "";
+                        if (field.isAnnotationPresent(TinyQualifier.class)) {
+                            TinyQualifier qualifier = field.getAnnotation(TinyQualifier.class);
+                            name = qualifier.value();
+                        }
                         if (Objects.equals("", name)) {
                             name = field.getName();
                         }

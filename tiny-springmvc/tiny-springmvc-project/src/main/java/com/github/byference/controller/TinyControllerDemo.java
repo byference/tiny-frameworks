@@ -1,9 +1,6 @@
 package com.github.byference.controller;
 
-import com.github.byference.annotation.TinyAutowired;
-import com.github.byference.annotation.TinyController;
-import com.github.byference.annotation.TinyRequestMapping;
-import com.github.byference.annotation.TinyRequestParam;
+import com.github.byference.annotation.*;
 import com.github.byference.service.TinyService;
 
 /**
