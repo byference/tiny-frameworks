@@ -9,8 +9,8 @@
 
 ## TODO LIST
 
-- [x] tiny-springmvc
-- [ ] tiny-dubbo
+- [x] tiny-mvc
+- [ ] tiny-rpc
 - [ ] tiny-mq
 - [ ] tiny-nacos
 - [ ] tiny-spring
@@ -22,15 +22,16 @@
 ## Modules
 
 
-|  Module Name   |        Module Information         |
-| :------------: | :-------------------------------: |
-| tiny-springmvc | 仿写SpringMVC的一个简易版 MVC框架 |
+| Module Name | Module Information |
+| :---------: | :----------------: |
+|  tiny-mvc   |   简易版MVC框架    |
+|  tiny-rpc   |   简易版RPC框架    |
 
 
 
 ## Reference
 
-- **tiny-springmvc**
+- **tiny-mvc**
     - https://my.oschina.net/liughDevelop/blog/1622646
     - https://blog.csdn.net/chyanwu68/article/details/81150924
 
