@@ -11,7 +11,7 @@
 
 
     <modules>
-        <module>tiny-springmvc</module>
+        <module>tiny-mvc</module>
         <module>tiny-rpc</module>
     </modules>
 
