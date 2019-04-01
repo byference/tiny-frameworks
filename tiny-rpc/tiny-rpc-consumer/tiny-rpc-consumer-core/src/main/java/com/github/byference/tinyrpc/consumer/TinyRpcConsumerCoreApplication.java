@@ -1,4 +1,4 @@
-package com.github.byference.tinyrpc.provider;
+package com.github.byference.tinyrpc.consumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2019/03/31
  */
 @SpringBootApplication
-public class TinyRpcProviderCoreApplication {
+public class TinyRpcConsumerCoreApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TinyRpcProviderCoreApplication.class, args);
+        SpringApplication.run(TinyRpcConsumerCoreApplication.class, args);
     }
 
 }

@@ -7,7 +7,7 @@
 
 
 
-## TODO LIST
+## CHECK LIST
 
 - [x] tiny-mvc
 - [ ] tiny-rpc
