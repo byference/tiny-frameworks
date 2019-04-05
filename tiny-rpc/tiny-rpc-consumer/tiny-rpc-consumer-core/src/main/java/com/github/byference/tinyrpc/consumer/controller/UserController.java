@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @TinyReference
+    @TinyReference("userService")
     private UserService userService;
 
 

@@ -8,7 +8,7 @@ import com.github.byference.tinyrpc.consumer.entity.User;
  * @author byference
  * @since 2019/03/31
  */
-@TinyService
+@TinyService("userService")
 public class UserServiceImpl implements UserService {
 
     @Override
