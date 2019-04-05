@@ -1,8 +1,8 @@
 package com.github.byference.tinyrpc.provider.impl;
 
-import com.github.byference.tinyrpc.annotation.TinyService;
+import com.github.byference.tinyrpc.core.annotation.TinyService;
 import com.github.byference.tinyrpc.provider.api.UserService;
-import com.github.byference.tinyrpc.consumer.entity.User;
+import com.github.byference.tinyrpc.provider.entity.User;
 
 /**
  * @author byference

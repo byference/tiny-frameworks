@@ -1,4 +1,4 @@
-package com.github.byference.tinyrpc.common;
+package com.github.byference.tinyrpc.core.common;
 
 /**
  * TinyRpcConst

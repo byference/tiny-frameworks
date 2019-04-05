@@ -1,4 +1,4 @@
-package com.github.byference.tinyrpc.consumer.entity;
+package com.github.byference.tinyrpc.provider.entity;
 
 import lombok.Data;
 

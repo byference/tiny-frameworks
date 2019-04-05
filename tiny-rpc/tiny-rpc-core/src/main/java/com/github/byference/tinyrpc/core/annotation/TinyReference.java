@@ -1,23 +1,21 @@
-package com.github.byference.tinyrpc.annotation;
+package com.github.byference.tinyrpc.core.annotation;
 
-import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
 
 /**
- * Service annotation
+ * Reference
  *
  * @author byference
  * @since 2019/03/31
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Component
-public @interface TinyService {
+public @interface TinyReference {
 
     /**
-     * The value may indicate a suggestion for a logical component name.
+     * Interface class name
      */
     String value() default "";
 

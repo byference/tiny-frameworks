@@ -1,4 +1,4 @@
-package com.github.byference.tinyrpc.util;
+package com.github.byference.tinyrpc.core.util;
 
 /**
  * StringUtil

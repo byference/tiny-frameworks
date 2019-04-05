@@ -1,6 +1,6 @@
 package com.github.byference.tinyrpc.provider.api;
 
-import com.github.byference.tinyrpc.consumer.entity.User;
+import com.github.byference.tinyrpc.provider.entity.User;
 
 /**
  * @author byference
