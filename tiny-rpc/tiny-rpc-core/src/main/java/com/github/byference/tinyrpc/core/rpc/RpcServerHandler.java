@@ -1,4 +1,4 @@
-package com.github.byference.tinyrpc.provider.rpc;
+package com.github.byference.tinyrpc.core.rpc;
 
 import com.github.byference.tinyrpc.core.model.RpcRequest;
 import com.github.byference.tinyrpc.core.model.RpcResponse;
@@ -17,7 +17,7 @@ import java.util.Map;
  * RpcServerHandler
  *
  * @author byference
- * @since 2019/04/01
+ * @since 2019/04/13
  */
 @Slf4j
 public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
