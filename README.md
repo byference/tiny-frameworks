@@ -11,8 +11,8 @@
 
 - [x] tiny-mvc
 - [ ] tiny-rpc
+- [ ] tiny-discovery
 - [ ] tiny-mq
-- [ ] tiny-nacos
 - [ ] tiny-spring
 - [ ] tiny-mybatis
 
