@@ -16,6 +16,6 @@ public @interface TinyComponent {
     /**
      * The value may indicate a suggestion for a logical component name.
      */
-    String value() default "";
+    String value();
 
 }

@@ -40,7 +40,7 @@ public class TinyDispatcherServlet extends HttpServlet {
 
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) {
 
         // 加载配置文件
         loadConfig(config.getInitParameter("contextConfigLocation"));
@@ -191,19 +191,6 @@ public class TinyDispatcherServlet extends HttpServlet {
 
                         TinyComponent tinyComponent = clazz.getAnnotation(TinyComponent.class);
                         String beanName = tinyComponent.value();
-                        if (Objects.equals("", beanName)) {
-                            Class<?>[] interfaces = clazz.getInterfaces();
-                            for (Class<?> anInterface : interfaces) {
-
-                                String interfaceSimpleName = anInterface.getSimpleName();
-                                String clazzSimpleName = clazz.getSimpleName();
-                                if (clazzSimpleName.startsWith(interfaceSimpleName)) {
-                                    beanName = lowerFirst(interfaceSimpleName);
-                                } else {
-                                    beanName = lowerFirst(clazzSimpleName);
-                                }
-                            }
-                        }
                         beans.put(beanName, clazz.newInstance());
                     }
                 } catch (Exception e) {

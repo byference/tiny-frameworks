@@ -7,7 +7,7 @@ import com.github.byference.service.TinyService;
  * @author byference
  * @since 2019/03/20
  */
-@TinyComponent
+@TinyComponent("tinyService")
 public class TinyServiceImpl implements TinyService {
 
     @Override

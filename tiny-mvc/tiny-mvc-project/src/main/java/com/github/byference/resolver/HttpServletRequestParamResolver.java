@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  * @author byference
  * @since 2019/03/23
  */
-@TinyComponent
+@TinyComponent("httpServletRequestParamResolver")
 public class HttpServletRequestParamResolver implements ParamResolver {
 
     @Override
