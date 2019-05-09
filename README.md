@@ -10,8 +10,9 @@
 ## CHECK LIST
 
 - [x] tiny-mvc
-- [ ] tiny-rpc
+- [x] tiny-rpc
 - [ ] tiny-discovery
+- [ ] tiny-gateway
 - [ ] tiny-mq
 - [ ] tiny-spring
 - [ ] tiny-mybatis
