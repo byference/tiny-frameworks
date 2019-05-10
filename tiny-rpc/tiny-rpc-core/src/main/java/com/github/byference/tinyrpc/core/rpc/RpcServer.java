@@ -6,6 +6,7 @@ import com.github.byference.tinyrpc.core.model.RpcRequest;
 import com.github.byference.tinyrpc.core.model.RpcResponse;
 import com.github.byference.tinyrpc.core.util.RpcDecoder;
 import com.github.byference.tinyrpc.core.util.RpcEncoder;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -23,9 +24,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * RpcServer
@@ -76,7 +75,10 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
         if (listenerExecutor == null) {
             synchronized (RpcServer.class) {
                 if (listenerExecutor == null) {
-                    listenerExecutor = Executors.newFixedThreadPool(1);
+                    ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("rpc-listener-%s").build();
+                    listenerExecutor = new ThreadPoolExecutor(1, 1,
+                            0L, TimeUnit.MILLISECONDS,
+                            new LinkedBlockingQueue<>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
                 }
             }
         }
@@ -120,12 +122,15 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
     }
 
 
-    public static void submit(Runnable task) {
+    static void submit(Runnable task) {
 
         if (handleExecutor == null) {
             synchronized (RpcServer.class) {
                 if (handleExecutor == null) {
-                    handleExecutor = Executors.newFixedThreadPool(16);
+                    ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("rpc-handle-%s").build();
+                    handleExecutor = new ThreadPoolExecutor(5, 20,
+                            0L, TimeUnit.MILLISECONDS,
+                            new LinkedBlockingQueue<>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
                 }
             }
         }
