@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author byference
  * @since 2019/04/01
  */
-public class SerializationUtil {
+public final class SerializationUtil {
 
     private static Map<Class<?>, Schema<?>> cachedSchema = new ConcurrentHashMap<>();
 

@@ -8,7 +8,7 @@ import java.util.UUID;
  * @author byference
  * @since 2019/04/06
  */
-public class IdGenerator {
+public final class IdGenerator {
 
     /**
      * 生成不含{@code -}的UUID字符串

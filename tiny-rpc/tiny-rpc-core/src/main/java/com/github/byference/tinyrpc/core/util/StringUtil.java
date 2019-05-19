@@ -6,7 +6,7 @@ package com.github.byference.tinyrpc.core.util;
  * @author byference
  * @since 2019/04/05
  */
-public class StringUtil {
+public final class StringUtil {
 
 
     /**
