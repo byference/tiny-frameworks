@@ -1,5 +1,7 @@
 package com.github.byference.mybatis.demo;
 
+import com.github.byference.mybatis.core.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -13,11 +15,10 @@ public class Test {
     public static void main(String[] args) throws IOException {
 
         // 将配置文件读取为stream
-        InputStream resourceAsStream = Test.class.getClassLoader().getResourceAsStream("mybatis-config.xml");
-//        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+        InputStream inputStream = Test.class.getClassLoader().getResourceAsStream("mybatis-config.xml");
 
         // 通过读取的stream构建 SqlSessionFactory
-//        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        TinySqlSessionFactory sqlSessionFactory = new TinySqlSessionFactoryBuilder().build(inputStream);
 
         // 从 SqlSessionFactory 中获取 SqlSession
 //        SqlSession sqlSession = sqlSessionFactory.openSession();
