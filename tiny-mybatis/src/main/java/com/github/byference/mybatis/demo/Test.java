@@ -21,7 +21,7 @@ public class Test {
         TinySqlSessionFactory sqlSessionFactory = new TinySqlSessionFactoryBuilder().build(inputStream);
 
         // 从 SqlSessionFactory 中获取 SqlSession
-//        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TinySqlSession sqlSession = sqlSessionFactory.openSession();
 
         // 从SqlSession中获取mapper实例（代理）
 //        UserInfoMapper mapper = sqlSession.getMapper(UserInfoMapper.class);

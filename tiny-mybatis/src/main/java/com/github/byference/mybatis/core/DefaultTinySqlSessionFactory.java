@@ -16,14 +16,13 @@ public class DefaultTinySqlSessionFactory implements TinySqlSessionFactory {
         this.configuration = configuration;
     }
 
+
+
     @Override
     public TinySqlSession openSession() {
 
-
-
-
-
-        return null;
+        TinyExecutor executor = new TinyExecutor(configuration);
+        return new TinySqlSession(configuration, executor);
     }
 
     @Override
