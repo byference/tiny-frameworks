@@ -15,7 +15,9 @@ public class TinySqlSessionFactoryBuilder {
 
     public TinySqlSessionFactory build(InputStream inputStream) {
 
-        Properties properties = XMLParser.getDataSourceProperties(inputStream);
+        XMLParser xmlParser = new XMLParser(inputStream);
+
+        Properties properties = xmlParser.getDataSourceProperties();
 
         TinyConfiguration configuration = new TinyConfiguration();
         TinyEnvironment environment = new TinyEnvironment();
@@ -25,6 +27,9 @@ public class TinySqlSessionFactoryBuilder {
         environment.setUsername(properties.getProperty("username"));
         environment.setPassword(properties.getProperty("password"));
         configuration.setEnvironment(environment);
+
+        // 初始化statementMap
+        configuration.setMapperStatementMap(xmlParser.getMapperStatementMap());
 
         return new DefaultTinySqlSessionFactory(configuration);
     }

@@ -1,6 +1,7 @@
 package com.github.byference.mybatis.demo;
 
 import com.github.byference.mybatis.core.*;
+import com.github.byference.mybatis.mapper.UserInfoMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +25,7 @@ public class Test {
         TinySqlSession sqlSession = sqlSessionFactory.openSession();
 
         // 从SqlSession中获取mapper实例（代理）
-//        UserInfoMapper mapper = sqlSession.getMapper(UserInfoMapper.class);
+        UserInfoMapper mapper = sqlSession.getMapper(UserInfoMapper.class);
 
         // 调用mapper方法
 //        List<UserInfo> userInfos = mapper.selectAll();

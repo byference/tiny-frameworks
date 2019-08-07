@@ -8,14 +8,12 @@ package com.github.byference.mybatis.core;
  */
 public class DefaultTinySqlSessionFactory implements TinySqlSessionFactory {
 
-
     private final TinyConfiguration configuration;
 
 
     public DefaultTinySqlSessionFactory(TinyConfiguration configuration) {
         this.configuration = configuration;
     }
-
 
 
     @Override
@@ -25,8 +23,10 @@ public class DefaultTinySqlSessionFactory implements TinySqlSessionFactory {
         return new TinySqlSession(configuration, executor);
     }
 
+
     @Override
     public TinyConfiguration getConfiguration() {
         return configuration;
     }
+
 }
