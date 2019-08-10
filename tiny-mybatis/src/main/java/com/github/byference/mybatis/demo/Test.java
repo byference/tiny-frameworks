@@ -1,10 +1,15 @@
 package com.github.byference.mybatis.demo;
 
-import com.github.byference.mybatis.core.*;
+import com.alibaba.fastjson.JSON;
+import com.github.byference.mybatis.core.TinySqlSession;
+import com.github.byference.mybatis.core.TinySqlSessionFactory;
+import com.github.byference.mybatis.core.TinySqlSessionFactoryBuilder;
+import com.github.byference.mybatis.entity.UserInfo;
 import com.github.byference.mybatis.mapper.UserInfoMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @author byference
@@ -28,12 +33,9 @@ public class Test {
         UserInfoMapper mapper = sqlSession.getMapper(UserInfoMapper.class);
 
         // 调用mapper方法
-//        List<UserInfo> userInfos = mapper.selectAll();
+        List<UserInfo> userInfos = mapper.selectAll();
 
-//        userInfos.forEach(System.out::println);
-
-
-        System.out.println("end");
+        System.out.println(JSON.toJSONString(userInfos));
 
     }
 }
