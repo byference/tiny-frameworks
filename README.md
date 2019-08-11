@@ -11,11 +11,11 @@
 
 - [x] tiny-mvc
 - [x] tiny-rpc
+- [x] tiny-mybatis
+- [ ] tiny-mq
 - [ ] tiny-discovery
 - [ ] tiny-gateway
-- [ ] tiny-mq
 - [ ] tiny-spring
-- [ ] tiny-mybatis
 
 
 
@@ -23,10 +23,11 @@
 ## Modules
 
 
-| Module Name | Module Information |
-| :---------: | :----------------: |
-|  tiny-mvc   |   简易版MVC框架    |
-|  tiny-rpc   |   简易版RPC框架    |
+| Module Name  | Module Information |
+| :----------: | :----------------: |
+|   tiny-mvc   |     简易版MVC      |
+|   tiny-rpc   |     简易版RPC      |
+| tiny-mybatis |   简易版MyBatis    |
 
 
 
