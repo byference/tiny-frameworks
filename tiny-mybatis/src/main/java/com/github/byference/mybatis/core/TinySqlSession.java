@@ -1,9 +1,7 @@
 package com.github.byference.mybatis.core;
 
 import java.lang.reflect.Proxy;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * TinySqlSession
@@ -49,11 +47,16 @@ public class TinySqlSession {
     }
 
 
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> selectMap(String statementKey, Object[] args) {
 
-    private Map<String, Object> selectMap(String statementKey, Object[] args) {
+        Object result = this.selectOne(statementKey, args);
+        if (result == null) {
+            return Collections.emptyMap();
+        }
 
-
-        return null;
+        // not the best way
+        return new HashMap((Map) result);
     }
 
 
@@ -67,8 +70,7 @@ public class TinySqlSession {
 
     public Object selectOne(String statementKey, Object[] args) {
 
-        MapperStatement mapperStatement = configuration.getMapperStatementMap().get(statementKey);
-        List<Object> results = executor.query(mapperStatement, args);
+        List<Object> results = this.selectList(statementKey, args);
 
         if (results.size() == 1) {
             return results.get(0);
