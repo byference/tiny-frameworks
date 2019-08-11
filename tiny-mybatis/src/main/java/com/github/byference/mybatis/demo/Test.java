@@ -9,7 +9,6 @@ import com.github.byference.mybatis.mapper.UserInfoMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * @author byference
@@ -33,9 +32,10 @@ public class Test {
         UserInfoMapper mapper = sqlSession.getMapper(UserInfoMapper.class);
 
         // 调用mapper方法
-        List<UserInfo> userInfos = mapper.selectAll();
+        UserInfo userInfo = mapper.selectByIdAndName(1, "joy");
 
-        System.out.println(JSON.toJSONString(userInfos));
+        // 打印输出
+        System.out.println(JSON.toJSONString(userInfo));
 
     }
 }

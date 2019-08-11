@@ -4,8 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.byference.mybatis.util.RegexUtil;
 
 import javax.sql.DataSource;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TinyExecutor
@@ -26,13 +30,23 @@ public class TinyExecutor {
 
     public List<Object> query(MapperStatement mapperStatement, Object[] args) {
 
-        List<Object> list = new ArrayList<>();
-
+        List<Object> resultList = new ArrayList<>();
         String sql = mapperStatement.getSql();
+
+        if (args != null) {
+            sql = RegexUtil.sqlHandle(sql);
+        }
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            if (args != null) {
+                for (int i = 0; i < args.length; i++) {
+                    preparedStatement.setObject(i + 1, args[i]);
+                }
+            }
+
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetMetaData metaData = resultSet.getMetaData();
 
@@ -49,13 +63,13 @@ public class TinyExecutor {
                 }
 
                 Object object = jsonObject.toJavaObject(clazz);
-                list.add(object);
+                resultList.add(object);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return list;
+        return resultList;
     }
 
 

@@ -4,8 +4,26 @@
 
 
     <select id="selectAll" resultType="com.github.byference.mybatis.entity.UserInfo">
-        select id "id", user_name "userName", user_level "userLevel" from user_info
+        SELECT
+            id "id",
+            user_name "userName",
+            user_level "userLevel"
+        FROM
+            user_info
     </select>
 
+
+    <select id="selectByIdAndName" resultType="com.github.byference.mybatis.entity.UserInfo">
+        SELECT
+            id "id",
+            user_name "userName",
+            user_level "userLevel"
+        FROM
+            user_info
+        WHERE
+            id = #{id}
+        AND
+            user_name = #{userName}
+    </select>
 
 </mapper>

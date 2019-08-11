@@ -14,8 +14,29 @@ public class RegexUtil {
 
     private static final Pattern UNDERLINE_HUMP_PATTERN = Pattern.compile("_(\\w)");
 
+    private static final Pattern MYBATIS_PATTERN = Pattern.compile("\\#\\{(\\w+)\\s*(([\\+\\-])\\s*(\\d+))?\\}");
+
 
     private RegexUtil() {}
+
+
+    /**
+     * 替换SQL中的 <code>#{}</code>
+     * 暂时不支持复杂对象
+     *
+     * @param sql sql form mapper
+     * @return sql
+     */
+    public static String sqlHandle(String sql) {
+
+        String resultSql = sql;
+        Matcher matcher = MYBATIS_PATTERN.matcher(sql);
+
+        while (matcher.find()) {
+            resultSql = resultSql.replace(matcher.group(0), "?");
+        }
+        return resultSql;
+    }
 
 
     /**

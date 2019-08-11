@@ -11,9 +11,21 @@ import java.util.List;
  */
 public interface UserInfoMapper {
 
+
+    /**
+     * 根据ID获取 {@link UserInfo}
+     *
+     * @param id   用户id
+     * @param name 用户名（测试多参数）
+     * @return elements of {@link UserInfo}
+     */
+    UserInfo selectByIdAndName(Integer id, String name);
+
+
     /**
      * 获取全部 {@link UserInfo} 数据
-     * @return elements of {@link UserInfo}
+     *
+     * @return list of {@link UserInfo}
      */
     List<UserInfo> selectAll();
 

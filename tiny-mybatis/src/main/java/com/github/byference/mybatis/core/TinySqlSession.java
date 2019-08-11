@@ -29,23 +29,31 @@ public class TinySqlSession {
 
         return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz}, (proxy, method, args) -> {
 
-            Object result = null;
+            Object result;
             String statementKey = clazz.getName() + "." + method.getName();
             Class<?> returnType = method.getReturnType();
 
-            // TODO execute sql
+            // execute sql
             if (Collection.class.isAssignableFrom(returnType)) {
                 // collection
                 result = selectList(statementKey, args);
             } else if (Map.class.isAssignableFrom(returnType)) {
                 // map
-                //selectList(statementKey, args);
+                result = selectMap(statementKey, args);
             } else {
                 // Object
                 result = selectOne(statementKey, args);
             }
             return result;
         });
+    }
+
+
+
+    private Map<String, Object> selectMap(String statementKey, Object[] args) {
+
+
+        return null;
     }
 
 
@@ -59,8 +67,16 @@ public class TinySqlSession {
 
     public Object selectOne(String statementKey, Object[] args) {
 
+        MapperStatement mapperStatement = configuration.getMapperStatementMap().get(statementKey);
+        List<Object> results = executor.query(mapperStatement, args);
 
-        return null;
+        if (results.size() == 1) {
+            return results.get(0);
+        } else if (results.size() > 1) {
+            throw new IllegalArgumentException("Expected one result (or null) to be returned by selectOne(), but found: " + results.size());
+        } else {
+            return null;
+        }
     }
 
 
