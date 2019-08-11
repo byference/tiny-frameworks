@@ -1,9 +1,9 @@
 package com.github.byference.mybatis.demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.byference.mybatis.core.TinySqlSession;
-import com.github.byference.mybatis.core.TinySqlSessionFactory;
-import com.github.byference.mybatis.core.TinySqlSessionFactoryBuilder;
+import com.github.byference.mybatis.core.session.defaults.DefaultTinySqlSession;
+import com.github.byference.mybatis.core.session.TinySqlSessionFactory;
+import com.github.byference.mybatis.core.session.TinySqlSessionFactoryBuilder;
 import com.github.byference.mybatis.entity.UserInfo;
 import com.github.byference.mybatis.mapper.UserInfoMapper;
 
@@ -26,7 +26,7 @@ public class Test {
         TinySqlSessionFactory sqlSessionFactory = new TinySqlSessionFactoryBuilder().build(inputStream);
 
         // 从 SqlSessionFactory 中获取 SqlSession
-        TinySqlSession sqlSession = sqlSessionFactory.openSession();
+        DefaultTinySqlSession sqlSession = sqlSessionFactory.openSession();
 
         // 从SqlSession中获取mapper实例（代理）
         UserInfoMapper mapper = sqlSession.getMapper(UserInfoMapper.class);

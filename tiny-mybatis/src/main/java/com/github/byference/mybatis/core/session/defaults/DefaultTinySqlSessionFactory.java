@@ -1,4 +1,9 @@
-package com.github.byference.mybatis.core;
+package com.github.byference.mybatis.core.session.defaults;
+
+import com.github.byference.mybatis.core.TinyConfiguration;
+import com.github.byference.mybatis.core.executor.TinyExecutor;
+import com.github.byference.mybatis.core.session.TinySqlSessionFactory;
+import com.github.byference.mybatis.core.session.defaults.DefaultTinySqlSession;
 
 /**
  * DefaultTinySqlSessionFactory
@@ -17,10 +22,10 @@ public class DefaultTinySqlSessionFactory implements TinySqlSessionFactory {
 
 
     @Override
-    public TinySqlSession openSession() {
+    public DefaultTinySqlSession openSession() {
 
         TinyExecutor executor = new TinyExecutor(configuration);
-        return new TinySqlSession(configuration, executor);
+        return new DefaultTinySqlSession(configuration, executor);
     }
 
 

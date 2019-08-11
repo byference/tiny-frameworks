@@ -1,7 +1,10 @@
-package com.github.byference.mybatis.core;
+package com.github.byference.mybatis.core.executor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.byference.mybatis.util.RegexUtil;
+import com.github.byference.mybatis.core.mapping.MapperStatement;
+import com.github.byference.mybatis.core.TinyConfiguration;
+import com.github.byference.mybatis.core.datasource.TinyDataSource;
+import com.github.byference.mybatis.core.util.RegexUtil;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

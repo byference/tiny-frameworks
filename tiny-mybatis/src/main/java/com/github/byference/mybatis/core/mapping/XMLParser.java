@@ -1,4 +1,4 @@
-package com.github.byference.mybatis.core;
+package com.github.byference.mybatis.core.mapping;
 
 import lombok.Getter;
 import org.dom4j.Document;
@@ -23,7 +23,7 @@ public class XMLParser {
     private Map<String, MapperStatement> mapperStatementMap;
 
 
-    XMLParser(InputStream inputStream) {
+    public XMLParser(InputStream inputStream) {
 
         this.parse(inputStream);
     }

@@ -1,4 +1,4 @@
-package com.github.byference.mybatis.util;
+package com.github.byference.mybatis.core.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

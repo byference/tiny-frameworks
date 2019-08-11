@@ -1,5 +1,10 @@
-package com.github.byference.mybatis.core;
+package com.github.byference.mybatis.core.session;
 
+
+import com.github.byference.mybatis.core.session.defaults.DefaultTinySqlSessionFactory;
+import com.github.byference.mybatis.core.TinyConfiguration;
+import com.github.byference.mybatis.core.mapping.TinyEnvironment;
+import com.github.byference.mybatis.core.mapping.XMLParser;
 
 import java.io.InputStream;
 import java.util.Properties;

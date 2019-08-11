@@ -1,4 +1,4 @@
-package com.github.byference.mybatis.core;
+package com.github.byference.mybatis.core.datasource;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;

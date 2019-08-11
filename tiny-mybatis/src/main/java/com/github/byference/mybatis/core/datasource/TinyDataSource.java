@@ -1,5 +1,6 @@
-package com.github.byference.mybatis.core;
+package com.github.byference.mybatis.core.datasource;
 
+import com.github.byference.mybatis.core.mapping.TinyEnvironment;
 import com.zaxxer.hikari.HikariDataSource;
 
 import javax.sql.DataSource;

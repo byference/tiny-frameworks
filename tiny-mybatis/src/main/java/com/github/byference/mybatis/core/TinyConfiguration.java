@@ -1,5 +1,7 @@
 package com.github.byference.mybatis.core;
 
+import com.github.byference.mybatis.core.mapping.MapperStatement;
+import com.github.byference.mybatis.core.mapping.TinyEnvironment;
 import lombok.Data;
 
 import java.util.Map;

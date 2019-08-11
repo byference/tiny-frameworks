@@ -1,22 +1,26 @@
-package com.github.byference.mybatis.core;
+package com.github.byference.mybatis.core.session.defaults;
+
+import com.github.byference.mybatis.core.mapping.MapperStatement;
+import com.github.byference.mybatis.core.TinyConfiguration;
+import com.github.byference.mybatis.core.executor.TinyExecutor;
 
 import java.lang.reflect.Proxy;
 import java.util.*;
 
 /**
- * TinySqlSession
+ * DefaultTinySqlSession
  *
  * @author byference
  * @since 2019-08-03
  */
-public class TinySqlSession {
+public class DefaultTinySqlSession {
 
     private TinyConfiguration configuration;
 
     private TinyExecutor executor;
 
 
-    public TinySqlSession(TinyConfiguration configuration, TinyExecutor executor) {
+    public DefaultTinySqlSession(TinyConfiguration configuration, TinyExecutor executor) {
         this.configuration = configuration;
         this.executor = executor;
     }

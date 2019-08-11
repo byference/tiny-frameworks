@@ -1,4 +1,4 @@
-package com.github.byference.mybatis.core;
+package com.github.byference.mybatis.core.mapping;
 
 import lombok.Data;
 
