@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.byference.mybatis.mapper.UserInfoMapper">
+<mapper namespace="com.github.byference.mybatis.test.mapper.UserInfoMapper">
 
 
-    <select id="selectAll" resultType="com.github.byference.mybatis.entity.UserInfo">
+    <select id="selectAll" resultType="com.github.byference.mybatis.test.entity.UserInfo">
         SELECT
             id "id",
             user_name "userName",
@@ -13,7 +13,7 @@
     </select>
 
 
-    <select id="selectByIdAndName" resultType="com.github.byference.mybatis.entity.UserInfo">
+    <select id="selectByIdAndName" resultType="com.github.byference.mybatis.test.entity.UserInfo">
         SELECT
             id "id",
             user_name "userName",

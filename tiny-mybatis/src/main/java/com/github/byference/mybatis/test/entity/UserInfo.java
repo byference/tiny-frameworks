@@ -1,4 +1,4 @@
-package com.github.byference.mybatis.entity;
+package com.github.byference.mybatis.test.entity;
 
 import lombok.Data;
 

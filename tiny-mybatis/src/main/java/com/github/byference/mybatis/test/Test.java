@@ -1,11 +1,11 @@
-package com.github.byference.mybatis.demo;
+package com.github.byference.mybatis.test;
 
 import com.alibaba.fastjson.JSON;
 import com.github.byference.mybatis.core.session.defaults.DefaultTinySqlSession;
 import com.github.byference.mybatis.core.session.TinySqlSessionFactory;
 import com.github.byference.mybatis.core.session.TinySqlSessionFactoryBuilder;
-import com.github.byference.mybatis.entity.UserInfo;
-import com.github.byference.mybatis.mapper.UserInfoMapper;
+import com.github.byference.mybatis.test.entity.UserInfo;
+import com.github.byference.mybatis.test.mapper.UserInfoMapper;
 
 import java.io.IOException;
 import java.io.InputStream;

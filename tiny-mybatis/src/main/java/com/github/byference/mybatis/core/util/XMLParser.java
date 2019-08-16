@@ -1,5 +1,6 @@
-package com.github.byference.mybatis.core.mapping;
+package com.github.byference.mybatis.core.util;
 
+import com.github.byference.mybatis.core.mapping.MapperStatement;
 import lombok.Getter;
 import org.dom4j.Document;
 import org.dom4j.Element;

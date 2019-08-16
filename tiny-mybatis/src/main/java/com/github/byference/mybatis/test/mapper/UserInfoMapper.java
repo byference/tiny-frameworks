@@ -1,7 +1,7 @@
-package com.github.byference.mybatis.mapper;
+package com.github.byference.mybatis.test.mapper;
 
 
-import com.github.byference.mybatis.entity.UserInfo;
+import com.github.byference.mybatis.test.entity.UserInfo;
 
 import java.util.List;
 
