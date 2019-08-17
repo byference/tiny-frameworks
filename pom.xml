@@ -14,6 +14,7 @@
         <module>tiny-mvc</module>
         <module>tiny-rpc</module>
         <module>tiny-mybatis</module>
+        <module>data-structure</module>
     </modules>
 
 

@@ -23,11 +23,12 @@
 ## Modules
 
 
-| Module Name  | Module Information |
-| :----------: | :----------------: |
-|   tiny-mvc   |     简易版MVC      |
-|   tiny-rpc   |     简易版RPC      |
-| tiny-mybatis |   简易版MyBatis    |
+|  Module Name   | Module Information |
+| :------------: | :----------------: |
+|    tiny-mvc    |     简易版MVC      |
+|    tiny-rpc    |     简易版RPC      |
+|  tiny-mybatis  |   简易版MyBatis    |
+| data-structure |      数据结构      |
 
 
 
