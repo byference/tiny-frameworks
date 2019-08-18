@@ -2,6 +2,9 @@ package com.github.byference.data.structure.core.tree;
 
 /**
  * IntAvl
+ * TODO
+ *  1、删除方法没有考虑删除root 节点的情况
+ *  2、删除时最好保证树的递增或者递减
  *
  * @author byference
  * @since 2019-08-17
@@ -13,6 +16,112 @@ public class IntAvl {
 
 
 
+
+
+    private boolean delete(Node node, int value) {
+
+        // root is null
+        if (node == null) {
+            return false;
+        }
+
+        // 找到要删除的节点
+        Node deleteNode = getNodeByValue(node, value);
+        if (deleteNode == null) {
+            return false;
+        }
+
+        // 左树最大值或者右树最小值（这里使用左树最大值）
+        Node targetNode = getTargetNode(deleteNode);
+
+        Node parent;
+
+        if (deleteNode == targetNode) {
+
+            // 1、如果删除的节点没有子节点
+            parent = deleteNode.parent;
+            if (deleteNode.value > parent.value) {
+                parent.rightChild = null;
+            } else {
+                parent.leftChild = null;
+            }
+
+        } else {
+
+            // 2、删除的节点有子节点
+
+            // 将左树最大值 设置给要删除的节点
+            deleteNode.value = targetNode.value;
+            parent = targetNode.parent;
+
+
+            if (targetNode.value < root.value) {
+
+                // 左树: targetNode 覆盖 deleteNode
+                parent.rightChild = null;
+            } else {
+
+                // 右树: targetNode 覆盖 deleteNode
+                parent.leftChild = null;
+            }
+
+        }
+
+        rebuild(parent);
+        return true;
+    }
+
+
+    public boolean delete(int value) {
+
+        return delete(root, value);
+    }
+
+
+    private Node getTargetNode(Node target) {
+
+        Node maxNode;
+        Node temp = target;
+
+        if (target.value < root.value) {
+            // 左树取最大右子节点
+            do {
+                maxNode = temp;
+                temp = temp.rightChild;
+            } while (temp != null);
+
+        } else if (target.value > root.value){
+            // 右树取最小左子节点
+            do {
+                maxNode = temp;
+                temp = temp.leftChild;
+            } while (temp != null);
+
+        } else {
+            maxNode = target;
+        }
+
+        return maxNode;
+    }
+
+
+    private Node getNodeByValue(Node node, int value) {
+
+        Node temp = node;
+
+        do {
+
+            if (value > temp.value) {
+                temp = temp.rightChild;
+            } else if (value < temp.value) {
+                temp = temp.leftChild;
+            } else {
+                return temp;
+            }
+        } while (temp != null);
+
+        return null;
+    }
 
 
     private boolean put(Node node, int value) {
@@ -63,8 +172,6 @@ public class IntAvl {
     }
 
 
-
-
     private void rebuild(Node node) {
 
         while (node != null) {
@@ -92,8 +199,6 @@ public class IntAvl {
             node = node.parent;
         }
     }
-
-
 
 
     private int getNodeHeight(Node node) {
