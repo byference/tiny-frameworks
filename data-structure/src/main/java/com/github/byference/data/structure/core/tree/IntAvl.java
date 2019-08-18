@@ -3,8 +3,7 @@ package com.github.byference.data.structure.core.tree;
 /**
  * IntAvl
  * TODO
- *  1、删除方法没有考虑删除root 节点的情况
- *  2、删除时最好保证树的递增或者递减
+ *  1、删除时最好保证树的递增或者递减
  *
  * @author byference
  * @since 2019-08-17
@@ -30,6 +29,50 @@ public class IntAvl {
         if (deleteNode == null) {
             return false;
         }
+
+        // 如果是root 节点
+        if (deleteNode == root) {
+
+            Node leftChild = deleteNode.leftChild;
+            Node rightChild = deleteNode.rightChild;
+
+            if (leftChild == null && rightChild == null) {
+                root = null;
+                return true;
+            }
+
+            if (leftChild != null && rightChild != null) {
+
+                root = rightChild;
+                rightChild.parent = null;
+
+                Node temp = rightChild;
+                Node target;
+
+                do {
+                    target = temp;
+                    temp = temp.leftChild;
+                } while (temp != null);
+
+                target.leftChild = leftChild;
+                leftChild.parent = target;
+
+                rebuild(target);
+                return true;
+            }
+
+            if (leftChild == null) {
+                root = rightChild;
+                rightChild.parent = null;
+            }
+
+            if (rightChild == null) {
+                root = leftChild;
+                leftChild.parent = null;
+            }
+
+        }
+
 
         // 左树最大值或者右树最小值（这里使用左树最大值）
         Node targetNode = getTargetNode(deleteNode);
@@ -229,7 +272,7 @@ public class IntAvl {
      *
      * @return pivot
      */
-    Node rightLeftRotate(Node pivot) {
+    private Node rightLeftRotate(Node pivot) {
 
         // 先右旋再左旋
         Node node = rightRotate(pivot.leftChild);
@@ -247,7 +290,7 @@ public class IntAvl {
      *
      * @return pivot
      */
-    Node leftRightRotate(Node pivot) {
+    private Node leftRightRotate(Node pivot) {
 
         // 先左旋再右旋
         Node node = leftRotate(pivot.rightChild);
@@ -265,7 +308,7 @@ public class IntAvl {
      *
      * @return pivot
      */
-    Node leftRotate(Node pivot) {
+    private Node leftRotate(Node pivot) {
 
         // is null
         if (pivot == null) {
@@ -304,7 +347,7 @@ public class IntAvl {
      *
      * @return pivot
      */
-    Node rightRotate(Node pivot) {
+    private Node rightRotate(Node pivot) {
 
         // is null
         if (pivot == null) {

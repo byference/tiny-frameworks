@@ -29,8 +29,8 @@ public class IntAvlTest {
         avl.put(17);
         avl.put(20);
 
-        // 删除 3
-        avl.delete(3);
+        // 删除 8(root)
+        avl.delete(8);
 
         System.out.println(avl);
     }
