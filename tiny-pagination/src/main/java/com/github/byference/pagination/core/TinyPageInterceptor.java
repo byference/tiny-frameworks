@@ -10,6 +10,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -65,7 +66,11 @@ public class TinyPageInterceptor implements Interceptor {
         BoundSql pageBoundSql = new BoundSql(ms.getConfiguration(), pageSql, boundSql.getParameterMappings(), parameter);
 
         // 执行分页
-        return executor.query(ms, parameter, rowBounds, resultHandler, cacheKey, pageBoundSql);
+        List<Object> result = executor.query(ms, parameter, rowBounds, resultHandler, cacheKey, pageBoundSql);
+
+        // 封装成 Page对象
+        localPage.addAll(result);
+        return localPage;
     }
 
 

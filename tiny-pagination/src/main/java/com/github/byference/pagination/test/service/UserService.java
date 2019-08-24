@@ -29,7 +29,7 @@ public class UserService {
      */
     public List<UserInfo> getUserInfo(int pageNum, int pageSize) {
 
-//        TinyPageHelper.startPage(pageNum, pageSize);
+        TinyPageHelper.startPage(pageNum, pageSize);
         List<UserInfo> userInfo = userMapper.getUserInfo();
 
         log.info("query size: {}", userInfo.size());

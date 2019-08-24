@@ -1,5 +1,6 @@
 package com.github.byference.pagination.test.controller;
 
+import com.github.byference.pagination.core.PageInfo;
 import com.github.byference.pagination.test.pojo.UserInfo;
 import com.github.byference.pagination.test.service.UserService;
 import lombok.AllArgsConstructor;
@@ -26,11 +27,13 @@ public class UserController {
 
 
     @PostMapping("start")
-    public List<UserInfo> startPage() {
+    public PageInfo<UserInfo> startPage() {
 
         List<UserInfo> userInfo = userService.getUserInfo(1, 2);
-        log.info("results: {}", userInfo);
-        return userInfo;
+
+        PageInfo<UserInfo> pageInfo = new PageInfo<>(userInfo);
+        log.info("pageInfo: {}", pageInfo);
+        return pageInfo;
     }
 
 }
