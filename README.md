@@ -12,6 +12,7 @@
 - [x] tiny-mvc
 - [x] tiny-rpc
 - [x] tiny-mybatis
+- [x] tiny-pagination
 - [ ] tiny-mq
 - [ ] tiny-discovery
 - [ ] tiny-gateway
@@ -23,12 +24,13 @@
 ## Modules
 
 
-|  Module Name   | Module Information |
-| :------------: | :----------------: |
-|    tiny-mvc    |     简易版MVC      |
-|    tiny-rpc    |     简易版RPC      |
-|  tiny-mybatis  |   简易版MyBatis    |
-| data-structure |      数据结构      |
+|   Module Name   |  Module Information   |
+| :-------------: | :-------------------: |
+| data-structure  |       数据结构        |
+|    tiny-mvc     |       简易版MVC       |
+|    tiny-rpc     |       简易版RPC       |
+|  tiny-mybatis   |     简易版MyBatis     |
+| tiny-pagination | 简易版MyBatis分页插件  |
 
 
 

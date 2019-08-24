@@ -15,6 +15,7 @@
         <module>tiny-rpc</module>
         <module>tiny-mybatis</module>
         <module>data-structure</module>
+        <module>tiny-pagination</module>
     </modules>
 
 
