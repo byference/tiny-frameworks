@@ -18,7 +18,7 @@ public class TinyDataSource extends DataSourceAdapter {
 
     private TinyEnvironment environment;
 
-    private static TinyDataSource instance;
+    private static volatile TinyDataSource instance;
 
     private HikariDataSource dataSource;
 
