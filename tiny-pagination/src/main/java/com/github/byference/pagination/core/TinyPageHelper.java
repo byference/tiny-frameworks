@@ -31,4 +31,11 @@ public class TinyPageHelper {
     }
 
 
+    /**
+     * 移除本地变量
+     */
+    public static void clearPage() {
+        LOCAL_PAGE.remove();
+    }
+
 }

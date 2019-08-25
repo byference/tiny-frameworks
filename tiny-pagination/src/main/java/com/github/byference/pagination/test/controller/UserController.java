@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("start")
     public PageInfo<UserInfo> startPage() {
 
-        List<UserInfo> userInfo = userService.getUserInfo(1, 2);
+        List<UserInfo> userInfo = userService.getUserInfo(0, 2);
 
         PageInfo<UserInfo> pageInfo = new PageInfo<>(userInfo);
         log.info("pageInfo: {}", pageInfo);

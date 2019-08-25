@@ -1,5 +1,7 @@
 package com.github.byference.pagination.core;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * @author byference
  * @since 2019-08-24
  */
-public class Page<E> extends ArrayList<E> {
+public class Page<E> extends ArrayList<E> implements Closeable {
 
     private static final long serialVersionUID = 8683452581122892189L;
 
@@ -74,4 +76,11 @@ public class Page<E> extends ArrayList<E> {
                 ", total=" + total +
                 '}';
     }
+
+
+    @Override
+    public void close() throws IOException {
+        TinyPageHelper.clearPage();
+    }
+
 }
