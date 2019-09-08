@@ -16,6 +16,7 @@
         <module>tiny-mybatis</module>
         <module>data-structure</module>
         <module>tiny-pagination</module>
+        <module>tiny-transactional</module>
     </modules>
 
 

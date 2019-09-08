@@ -13,6 +13,7 @@
 - [x] tiny-rpc
 - [x] tiny-mybatis
 - [x] tiny-pagination
+- [x] tiny-transactional
 - [ ] tiny-mq
 - [ ] tiny-discovery
 - [ ] tiny-gateway
@@ -31,12 +32,7 @@
 |    tiny-rpc     |       简易版RPC       |
 |  tiny-mybatis   |     简易版MyBatis     |
 | tiny-pagination | 简易版MyBatis分页插件  |
+| tiny-transactional | 简易版Spring事务注解 |
 
 
-
-## Reference
-
-- **tiny-mvc**
-    - https://my.oschina.net/liughDevelop/blog/1622646
-    - https://blog.csdn.net/chyanwu68/article/details/81150924
 
