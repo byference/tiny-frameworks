@@ -12,6 +12,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * RPC通信client
  *
@@ -25,7 +27,7 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 
     private RpcResponse rpcResponse;
 
-    private final Object object = new Object();
+    private final CountDownLatch countDownLatch = new CountDownLatch(1);
 
     RpcClient(RpcRequest rpcRequest) {
         this.rpcRequest = rpcRequest;
@@ -33,11 +35,11 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext context, RpcResponse rpcResponse) {
+
+        log.info("rpc server [ {} ] error : {}", context.channel().remoteAddress(), rpcResponse);
         this.rpcResponse = rpcResponse;
-        synchronized (object) {
-            context.flush();
-            object.notifyAll();
-        }
+        context.flush();
+        countDownLatch.countDown();
     }
 
     /**
@@ -55,24 +57,20 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
                             channel.pipeline()
                                     .addLast(new RpcEncoder(RpcRequest.class))
                                     .addLast(new RpcDecoder(RpcResponse.class))
-                                    .addLast(RpcClient.this);
+                                    .addLast(this);
                         }
                     }).option(ChannelOption.SO_KEEPALIVE, true);
 
             String serverAddress = TinyRpcConst.SERVER_ADDRESS;
             String host = serverAddress.split(":")[0];
-            int port = Integer.valueOf(serverAddress.split(":")[1]);
-            ChannelFuture future = client.connect(host, port).sync();
+            int port = Integer.parseInt(serverAddress.split(":")[1]);
 
+            ChannelFuture future = client.connect(host, port).sync();
             log.info("==> 客户端发送数据: {}", rpcRequest);
             future.channel().writeAndFlush(rpcRequest).sync();
+            countDownLatch.await();
+            future.channel().closeFuture().sync();
 
-            synchronized (object) {
-                object.wait();
-            }
-            if (rpcResponse != null) {
-                future.channel().closeFuture().sync();
-            }
         } catch (Exception e) {
             log.error("rpc client send error: " + e.getMessage(), e);
         } finally {

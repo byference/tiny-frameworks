@@ -24,7 +24,7 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
 
     private Map<String, Object> rpcServiceBeans;
 
-    public RpcServerHandler(Map<String, Object> rpcServiceBeans) {
+    RpcServerHandler(Map<String, Object> rpcServiceBeans) {
         this.rpcServiceBeans = rpcServiceBeans;
     }
 
