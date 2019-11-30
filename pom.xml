@@ -17,6 +17,8 @@
         <module>data-structure</module>
         <module>tiny-pagination</module>
         <module>tiny-transactional</module>
+        <module>tiny-sso</module>
+        <module>tiny-sso/tiny-sso-samples</module>
     </modules>
 
 

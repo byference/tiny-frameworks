@@ -1,0 +1,18 @@
+server:
+  port: 8082
+spring:
+  main:
+    allow-bean-definition-overriding: true
+security:
+  oauth2:
+    client:
+      client-id: client2
+      client-secret: clientSecret
+      user-authorization-uri: http://localhost:8080/sso/oauth/authorize
+      access-token-uri: http://localhost:8080/sso/oauth/token
+      redirect-uri: http://localhost:8082/login
+    resource:
+      jwt:
+        key-uri: http://localhost:8080/sso/oauth/token_key
+    permit-urls:
+      - /user
