@@ -7,13 +7,15 @@
 
 
 
-## CHECK LIST
+## ROAD MAP
 
 - [x] tiny-mvc
 - [x] tiny-rpc
 - [x] tiny-mybatis
 - [x] tiny-pagination
 - [x] tiny-transactional
+- [x] tiny-sso(by spring-security)
+- [ ] tiny-mapper
 - [ ] tiny-mq
 - [ ] tiny-discovery
 - [ ] tiny-gateway
@@ -33,6 +35,7 @@
 |  tiny-mybatis   |     简易版MyBatis     |
 | tiny-pagination | 简易版MyBatis分页插件  |
 | tiny-transactional | 简易版Spring事务注解 |
+| tiny-sso | 基于spring-security实现简易版单点登陆 |
 
 
 
