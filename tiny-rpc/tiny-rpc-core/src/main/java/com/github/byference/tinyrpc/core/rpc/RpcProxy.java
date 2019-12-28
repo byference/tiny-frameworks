@@ -5,6 +5,7 @@ import com.github.byference.tinyrpc.core.model.RpcResponse;
 import com.github.byference.tinyrpc.core.util.IdGenerator;
 
 import java.lang.reflect.Proxy;
+import java.util.Objects;
 
 /**
  * 动态代理类
@@ -18,6 +19,9 @@ public class RpcProxy {
     public static <T> T getInstance(Class<T> interfaceClass) {
         return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class<?>[]{interfaceClass}, (proxy, method, args) -> {
 
+            if (Objects.equals(method.getName(), "toString")) {
+                return interfaceClass.getName();
+            }
             RpcRequest rpcRequest = new RpcRequest();
             String className = method.getDeclaringClass().getName();
             Class<?>[] parameterTypes = method.getParameterTypes();

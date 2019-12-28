@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
@@ -20,7 +19,6 @@ import java.util.Map;
  * @since 2019/04/13
  */
 @Slf4j
-@Component
 public class RpcApplicationContextListener implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
@@ -53,7 +51,5 @@ public class RpcApplicationContextListener implements ApplicationListener<Contex
             });
         }
     }
-
-
 
 }
