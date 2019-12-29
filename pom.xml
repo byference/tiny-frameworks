@@ -18,7 +18,7 @@
         <module>tiny-pagination</module>
         <module>tiny-transactional</module>
         <module>tiny-sso</module>
-        <module>tiny-sso/tiny-sso-samples</module>
+        <module>tiny-im</module>
     </modules>
 
 
