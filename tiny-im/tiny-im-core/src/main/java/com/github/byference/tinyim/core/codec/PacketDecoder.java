@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.github.byference.tinyim.core.protocol.Command;
 import com.github.byference.tinyim.core.protocol.Packet;
 import com.github.byference.tinyim.core.protocol.request.LoginRequestPacket;
+import com.github.byference.tinyim.core.protocol.request.MessageRequestPacket;
 import com.github.byference.tinyim.core.protocol.response.LoginResponsePacket;
+import com.github.byference.tinyim.core.protocol.response.MessageResponsePacket;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -27,6 +29,8 @@ public class PacketDecoder extends ByteToMessageDecoder {
         packetTypeMapper = new HashMap<>();
         packetTypeMapper.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMapper.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetTypeMapper.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetTypeMapper.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
     }
 
     @Override

@@ -1,9 +1,10 @@
 package com.github.byference.tinyim.core.client;
 
 import com.github.byference.tinyim.core.client.handler.LoginResponseHandler;
+import com.github.byference.tinyim.core.client.handler.MessageResponseHandler;
 import com.github.byference.tinyim.core.codec.PacketDecoder;
 import com.github.byference.tinyim.core.codec.PacketEncoder;
-import com.github.byference.tinyim.core.console.LoginConsoleCommand;
+import com.github.byference.tinyim.core.console.ConsoleCommandManager;
 import com.github.byference.tinyim.core.constant.DefaultNettyConst;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -36,6 +37,7 @@ public class TinyImClient {
                             channel.pipeline()
                                     .addLast(new PacketDecoder())
                                     .addLast(new LoginResponseHandler())
+                                    .addLast(new MessageResponseHandler())
                                     .addLast(new PacketEncoder());
 
                             // 启动控制台输入
@@ -52,12 +54,11 @@ public class TinyImClient {
     }
 
     private static void startConsoleInput(SocketChannel channel) {
-
-        LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
+        ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
         Scanner scanner = new Scanner(System.in);
         new Thread(() -> {
             for (;;) {
-                loginConsoleCommand.exec(scanner, channel);
+                consoleCommandManager.exec(scanner, channel);
             }
         }).start();
     }

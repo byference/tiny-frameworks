@@ -17,7 +17,7 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
     protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket packet) throws Exception {
 
         System.out.println("登陆成功...");
-        final String token = packet.getToken();
-        SessionHolder.bind(token, ctx.channel());
+        final String username = packet.getUsername();
+        SessionHolder.bind(username, ctx.channel());
     }
 }

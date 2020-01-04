@@ -19,9 +19,20 @@ public class SessionHolder {
     private SessionHolder() {}
 
 
-    public static void bind(String token, Channel channel) {
-        HOLDER.put(token, channel);
-        channel.attr(DefaultNettyConst.TOKEN).set(token);
+    public static Channel getChannel(String identify) {
+        return HOLDER.get(identify);
     }
 
+    public static String getCurrentUser(Channel channel) {
+        return channel.attr(DefaultNettyConst.TOKEN).get();
+    }
+
+    public static void bind(String identify, Channel channel) {
+        HOLDER.put(identify, channel);
+        channel.attr(DefaultNettyConst.TOKEN).set(identify);
+    }
+
+    public static boolean isLogin(Channel channel) {
+        return channel.attr(DefaultNettyConst.TOKEN).get() != null;
+    }
 }

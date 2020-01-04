@@ -22,7 +22,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         // do login
         final String username = packet.getUsername();
         final String token = generateToken();
-        SessionHolder.bind(token, ctx.channel());
+        SessionHolder.bind(username, ctx.channel());
         System.out.printf("用户[ %s ] 登陆成功\n", username);
 
         // response
