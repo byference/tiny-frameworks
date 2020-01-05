@@ -2,6 +2,7 @@ package com.github.byference.tinyim.core.server;
 
 import com.github.byference.tinyim.core.codec.PacketDecoder;
 import com.github.byference.tinyim.core.codec.PacketEncoder;
+import com.github.byference.tinyim.core.codec.TinyImSplits;
 import com.github.byference.tinyim.core.constant.DefaultNettyConst;
 import com.github.byference.tinyim.core.server.handler.LoginRequestHandler;
 import com.github.byference.tinyim.core.server.handler.MessageRequestHandler;
@@ -33,6 +34,7 @@ public class TinyImServer {
                         protected void initChannel(NioSocketChannel channel) throws Exception {
 
                             channel.pipeline()
+                                    .addLast(new TinyImSplits())
                                     .addLast(new PacketDecoder())
                                     .addLast(new LoginRequestHandler())
                                     .addLast(new MessageRequestHandler())

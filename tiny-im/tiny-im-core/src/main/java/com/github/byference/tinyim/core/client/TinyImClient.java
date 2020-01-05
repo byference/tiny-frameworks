@@ -4,6 +4,7 @@ import com.github.byference.tinyim.core.client.handler.LoginResponseHandler;
 import com.github.byference.tinyim.core.client.handler.MessageResponseHandler;
 import com.github.byference.tinyim.core.codec.PacketDecoder;
 import com.github.byference.tinyim.core.codec.PacketEncoder;
+import com.github.byference.tinyim.core.codec.TinyImSplits;
 import com.github.byference.tinyim.core.console.ConsoleCommandManager;
 import com.github.byference.tinyim.core.constant.DefaultNettyConst;
 import io.netty.bootstrap.Bootstrap;
@@ -35,6 +36,7 @@ public class TinyImClient {
                         protected void initChannel(SocketChannel channel) throws Exception {
 
                             channel.pipeline()
+                                    .addLast(new TinyImSplits())
                                     .addLast(new PacketDecoder())
                                     .addLast(new LoginResponseHandler())
                                     .addLast(new MessageResponseHandler())
