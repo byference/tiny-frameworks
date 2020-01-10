@@ -1,0 +1,49 @@
+= Tiny Frameworks image:https:img.shields.io/github/stars/byference/tiny-frameworks.svg?style=flat&label=Star[GitHub stars] image:https:img.shields.io/github/issues/byference/tiny-frameworks.svg?style=flat&label=issues[issues] image:https:img.shields.io/github/license/byference/tiny-frameworks.svg?style=flat&label=license[license]
+
+
+== ROAD MAP
+
+- [x] tiny-mvc
+- [x] tiny-rpc
+- [x] tiny-mybatis
+- [x] tiny-pagination
+- [x] tiny-transactional
+- [x] tiny-sso(by spring-security)
+- [ ] tiny-im
+- [ ] tiny-mapper
+- [ ] tiny-mq
+- [ ] tiny-discovery
+- [ ] tiny-gateway
+- [ ] tiny-spring
+
+
+
+== Modules
+
+|===
+|Module Name |Module Information
+
+|data-structure
+|数据结构
+
+|tiny-mvc
+|简易版MVC
+
+|tiny-rpc
+|简易版RPC
+
+|tiny-mybatis
+|简易版MyBatis
+
+|tiny-pagination
+|简易版MyBatis分页插件
+
+|tiny-transactional
+|简易版Spring事务注解
+
+|tiny-sso
+|基于spring-security实现简易版单点登陆
+|===
+
+
+
