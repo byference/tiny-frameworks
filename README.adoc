@@ -1,5 +1,8 @@
-= Tiny Frameworks image:https:img.shields.io/github/stars/byference/tiny-frameworks.svg?style=flat&label=Star[GitHub stars] image:https:img.shields.io/github/issues/byference/tiny-frameworks.svg?style=flat&label=issues[issues] image:https:img.shields.io/github/license/byference/tiny-frameworks.svg?style=flat&label=license[license]
+= Tiny Frameworks
 
+image:https:img.shields.io/github/stars/byference/tiny-frameworks.svg?style=flat&label=Star[GitHub stars]
+image:https:img.shields.io/github/issues/byference/tiny-frameworks.svg?style=flat&label=issues[issues]
+image:https:img.shields.io/github/license/byference/tiny-frameworks.svg?style=flat&label=license[license]
 
 == ROAD MAP
 
