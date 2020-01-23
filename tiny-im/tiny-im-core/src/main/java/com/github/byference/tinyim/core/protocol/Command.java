@@ -15,4 +15,8 @@ public interface Command {
     Byte MESSAGE_REQUEST = 3;
 
     Byte MESSAGE_RESPONSE = 4;
+
+    Byte LOGOUT_REQUEST = 5;
+
+    Byte LOGOUT_RESPONSE = 6;
 }

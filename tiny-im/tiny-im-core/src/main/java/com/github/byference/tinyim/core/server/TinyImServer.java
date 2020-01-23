@@ -5,6 +5,7 @@ import com.github.byference.tinyim.core.codec.PacketEncoder;
 import com.github.byference.tinyim.core.codec.TinyImSplits;
 import com.github.byference.tinyim.core.constant.DefaultNettyConst;
 import com.github.byference.tinyim.core.server.handler.LoginRequestHandler;
+import com.github.byference.tinyim.core.server.handler.LogoutRequestHandler;
 import com.github.byference.tinyim.core.server.handler.MessageRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -38,6 +39,7 @@ public class TinyImServer {
                                     .addLast(new PacketDecoder())
                                     .addLast(new LoginRequestHandler())
                                     .addLast(new MessageRequestHandler())
+                                    .addLast(new LogoutRequestHandler())
                                     .addLast(new PacketEncoder());
                         }
                     }).bind(DefaultNettyConst.DEFAULT_PORT).sync();

@@ -1,5 +1,6 @@
 package com.github.byference.tinyim.core.protocol;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 /**
@@ -14,6 +15,7 @@ public abstract class Packet {
     /**
      * 协议版本
      */
+    @JSONField(deserialize = false, serialize = false)
     private Byte version = 1;
 
     public abstract Byte getCommand();

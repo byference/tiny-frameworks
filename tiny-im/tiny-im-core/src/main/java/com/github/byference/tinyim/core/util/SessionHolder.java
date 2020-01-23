@@ -32,6 +32,11 @@ public class SessionHolder {
         channel.attr(DefaultNettyConst.TOKEN).set(identify);
     }
 
+    public static void unBind(String identify, Channel channel) {
+        HOLDER.remove(identify);
+        channel.attr(DefaultNettyConst.TOKEN).set(null);
+    }
+
     public static boolean isLogin(Channel channel) {
         return channel.attr(DefaultNettyConst.TOKEN).get() != null;
     }

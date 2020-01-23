@@ -1,6 +1,7 @@
 package com.github.byference.tinyim.core.client;
 
 import com.github.byference.tinyim.core.client.handler.LoginResponseHandler;
+import com.github.byference.tinyim.core.client.handler.LogoutResponseHandler;
 import com.github.byference.tinyim.core.client.handler.MessageResponseHandler;
 import com.github.byference.tinyim.core.codec.PacketDecoder;
 import com.github.byference.tinyim.core.codec.PacketEncoder;
@@ -40,6 +41,7 @@ public class TinyImClient {
                                     .addLast(new PacketDecoder())
                                     .addLast(new LoginResponseHandler())
                                     .addLast(new MessageResponseHandler())
+                                    .addLast(new LogoutResponseHandler())
                                     .addLast(new PacketEncoder());
 
                             // 启动控制台输入

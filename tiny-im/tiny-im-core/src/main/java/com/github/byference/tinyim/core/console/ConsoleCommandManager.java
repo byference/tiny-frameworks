@@ -15,12 +15,13 @@ public class ConsoleCommandManager implements ConsoleCommand {
         consoleCommandMap = new HashMap<>();
         consoleCommandMap.put("login", new LoginConsoleCommand());
         consoleCommandMap.put("send", new SendToUserConsoleCommand());
+        consoleCommandMap.put("logout", new LogoutConsoleCommand());
     }
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
 
-        String command = SessionHolder.isLogin(channel) ? scanner.next() : "login";
+        String command = SessionHolder.isLogin(channel) ? scanner.nextLine() : "login";
         ConsoleCommand consoleCommand = consoleCommandMap.get(command);
         if (consoleCommand != null) {
             consoleCommand.exec(scanner, channel);

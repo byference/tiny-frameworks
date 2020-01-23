@@ -20,11 +20,14 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
 
         String toUserId = packet.getToUserId();
         Channel toUserChannel = SessionHolder.getChannel(toUserId);
-        MessageResponsePacket responsePacket = new MessageResponsePacket();
-        responsePacket.setFromUserId(SessionHolder.getCurrentUser(ctx.channel()));
-        responsePacket.setFromUserName(SessionHolder.getCurrentUser(ctx.channel()));
-        responsePacket.setMessage(packet.getMessage());
-
-        toUserChannel.writeAndFlush(responsePacket);
+        if (toUserChannel == null) {
+            // TODO 离线消息缓存（暂不做用户存在校验）
+        } else {
+            MessageResponsePacket responsePacket = new MessageResponsePacket();
+            responsePacket.setFromUserId(SessionHolder.getCurrentUser(ctx.channel()));
+            responsePacket.setFromUserName(SessionHolder.getCurrentUser(ctx.channel()));
+            responsePacket.setMessage(packet.getMessage());
+            toUserChannel.writeAndFlush(responsePacket);
+        }
     }
 }
