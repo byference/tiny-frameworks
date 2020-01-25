@@ -4,6 +4,7 @@ import com.github.byference.tinyim.core.codec.PacketDecoder;
 import com.github.byference.tinyim.core.codec.PacketEncoder;
 import com.github.byference.tinyim.core.codec.TinyImSplits;
 import com.github.byference.tinyim.core.constant.DefaultNettyConst;
+import com.github.byference.tinyim.core.server.handler.AuthHandler;
 import com.github.byference.tinyim.core.server.handler.LoginRequestHandler;
 import com.github.byference.tinyim.core.server.handler.LogoutRequestHandler;
 import com.github.byference.tinyim.core.server.handler.MessageRequestHandler;
@@ -38,6 +39,7 @@ public class TinyImServer {
                                     .addLast(new TinyImSplits())
                                     .addLast(new PacketDecoder())
                                     .addLast(new LoginRequestHandler())
+                                    .addLast(new AuthHandler())
                                     .addLast(new MessageRequestHandler())
                                     .addLast(new LogoutRequestHandler())
                                     .addLast(new PacketEncoder());
