@@ -2,6 +2,7 @@ package com.github.byference.tinyim.core.console;
 
 import com.github.byference.tinyim.core.util.SessionHolder;
 import io.netty.channel.Channel;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,9 @@ public class ConsoleCommandManager implements ConsoleCommand {
     public void exec(Scanner scanner, Channel channel) {
 
         String command = SessionHolder.isLogin(channel) ? scanner.nextLine() : "login";
+        if (StringUtils.isBlank(command)) {
+            return;
+        }
         ConsoleCommand consoleCommand = consoleCommandMap.get(command);
         if (consoleCommand != null) {
             consoleCommand.exec(scanner, channel);

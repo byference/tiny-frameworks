@@ -17,8 +17,8 @@ public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageR
 
         String message = packet.getMessage();
         String fromUserName = packet.getFromUserName();
-        System.out.println("==========================  收到消息  ==========================");
+        System.out.println("==========================  收到来自 [ " + packet.getSource() + " ] 的消息  ==========================");
         System.out.printf("%s say: [ %s ]\n", fromUserName, message);
-        System.out.println("==============================================================");
+        System.out.println("=============================================================================");
     }
 }

@@ -44,8 +44,12 @@ public class TinyImServer {
                         }
                     }).bind(DefaultNettyConst.DEFAULT_PORT).sync();
 
+            future.addListener(callBackFuture -> {
+                if (callBackFuture.isSuccess()) {
+                    System.out.println("服务启动成功...");
+                }
+            });
             future.channel().closeFuture().sync();
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
