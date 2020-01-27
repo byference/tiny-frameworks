@@ -17,6 +17,7 @@ public class ConsoleCommandManager implements ConsoleCommand {
         consoleCommandMap.put("login", new LoginConsoleCommand());
         consoleCommandMap.put("send", new SendToUserConsoleCommand());
         consoleCommandMap.put("logout", new LogoutConsoleCommand());
+        consoleCommandMap.put("createGroup", new CreateGroupConsoleCommand());
     }
 
     @Override
