@@ -3,14 +3,8 @@ package com.github.byference.tinyim.core.codec;
 import com.alibaba.fastjson.JSON;
 import com.github.byference.tinyim.core.protocol.Command;
 import com.github.byference.tinyim.core.protocol.Packet;
-import com.github.byference.tinyim.core.protocol.request.CreateGroupRequestPacket;
-import com.github.byference.tinyim.core.protocol.request.LoginRequestPacket;
-import com.github.byference.tinyim.core.protocol.request.LogoutRequestPacket;
-import com.github.byference.tinyim.core.protocol.request.MessageRequestPacket;
-import com.github.byference.tinyim.core.protocol.response.CreateGroupResponsePacket;
-import com.github.byference.tinyim.core.protocol.response.LoginResponsePacket;
-import com.github.byference.tinyim.core.protocol.response.LogoutResponsePacket;
-import com.github.byference.tinyim.core.protocol.response.MessageResponsePacket;
+import com.github.byference.tinyim.core.protocol.request.*;
+import com.github.byference.tinyim.core.protocol.response.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -39,6 +33,9 @@ public class PacketDecoder extends ByteToMessageDecoder {
         packetTypeMapper.put(Command.LOGOUT_RESPONSE, LogoutResponsePacket.class);
         packetTypeMapper.put(Command.CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
         packetTypeMapper.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
+        packetTypeMapper.put(Command.JOIN_GROUP_REQUEST, JoinGroupRequestPacket.class);
+        packetTypeMapper.put(Command.JOIN_GROUP_RESPONSE, JoinGroupResponsePacket.class);
+        packetTypeMapper.put(Command.GROUP_NOTIFICATION_RESPONSE, GroupNotificationResponsePacket.class);
     }
 
     @Override

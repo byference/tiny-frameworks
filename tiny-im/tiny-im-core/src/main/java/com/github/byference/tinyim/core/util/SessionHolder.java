@@ -8,6 +8,7 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,8 +29,16 @@ public class SessionHolder {
     private SessionHolder() {}
 
 
-    public static void createGroup(String groupName, ChannelHandlerContext ctx) {
+    public static ChannelGroup getGroup(String groupName) {
+        return groupHolder.get(groupName);
+    }
 
+    public static void joinGroup(String groupName, List<String> users) {
+        ChannelGroup channels = groupHolder.get(groupName);
+        users.stream().distinct().map(identify -> sessionHolder.get(identify)).forEach(channels::add);
+    }
+
+    public static void createGroup(String groupName, ChannelHandlerContext ctx) {
         // create channelGroup
         DefaultChannelGroup channelGroup = new DefaultChannelGroup(ctx.executor());
         channelGroup.add(ctx.channel());

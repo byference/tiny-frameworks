@@ -1,9 +1,6 @@
 package com.github.byference.tinyim.core.client;
 
-import com.github.byference.tinyim.core.client.handler.CreateGroupResponseHandler;
-import com.github.byference.tinyim.core.client.handler.LoginResponseHandler;
-import com.github.byference.tinyim.core.client.handler.LogoutResponseHandler;
-import com.github.byference.tinyim.core.client.handler.MessageResponseHandler;
+import com.github.byference.tinyim.core.client.handler.*;
 import com.github.byference.tinyim.core.codec.PacketDecoder;
 import com.github.byference.tinyim.core.codec.PacketEncoder;
 import com.github.byference.tinyim.core.codec.TinyImSplits;
@@ -44,6 +41,8 @@ public class TinyImClient {
                                     .addLast(new MessageResponseHandler())
                                     .addLast(new LogoutResponseHandler())
                                     .addLast(new CreateGroupResponseHandler())
+                                    .addLast(new JoinGroupResponseHandler())
+                                    .addLast(new GroupNotificationResponseHandler())
                                     .addLast(new PacketEncoder());
 
                             // 启动控制台输入

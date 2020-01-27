@@ -40,6 +40,7 @@ public class TinyImServer {
                                     .addLast(new MessageRequestHandler())
                                     .addLast(new LogoutRequestHandler())
                                     .addLast(new CreateGroupRequestHandler())
+                                    .addLast(new JoinGroupRequestHandler())
                                     .addLast(new PacketEncoder());
                         }
                     }).bind(DefaultNettyConst.DEFAULT_PORT).sync();
