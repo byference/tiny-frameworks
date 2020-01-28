@@ -14,7 +14,7 @@ public class GroupNotificationResponseHandler extends SimpleChannelInboundHandle
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupNotificationResponsePacket packet) {
-        System.out.println("==========================  收到来自群 [ " + packet.getGroupName() + " ] 的消息  ==========================");
+        System.out.println("==========================  收到来自群 [ " + packet.getGroupName() + " ] 的通知  ==========================");
         System.out.println(packet.getNotification());
         System.out.println("=============================================================================");
     }

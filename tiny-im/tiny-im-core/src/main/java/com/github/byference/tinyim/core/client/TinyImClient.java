@@ -43,6 +43,7 @@ public class TinyImClient {
                                     .addLast(new CreateGroupResponseHandler())
                                     .addLast(new JoinGroupResponseHandler())
                                     .addLast(new GroupNotificationResponseHandler())
+                                    .addLast(new GroupMessageResponseHandler())
                                     .addLast(new PacketEncoder());
 
                             // 启动控制台输入

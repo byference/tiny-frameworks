@@ -25,7 +25,8 @@ public class JoinGroupConsoleCommand implements ConsoleCommand {
 
         System.out.println("请输入拉入群聊用户名称（英文逗号分割）:");
         String users = scanner.nextLine();
-        if (StringUtils.isBlank(users) || !users.contains(",")) {
+        if (StringUtils.isBlank(users)) {
+            System.err.println("用户不能为空，请重新操作...");
             return;
         }
 
