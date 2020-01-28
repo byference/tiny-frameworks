@@ -1,9 +1,11 @@
 package com.github.byference.tinyim.core.server.handler;
 
+import com.github.byference.tinyim.core.constant.OffLineMessageSource;
 import com.github.byference.tinyim.core.message.InMemoryOffLineMessageStore;
 import com.github.byference.tinyim.core.message.OffLineMessage;
 import com.github.byference.tinyim.core.message.OffLineMessageStore;
 import com.github.byference.tinyim.core.protocol.request.LoginRequestPacket;
+import com.github.byference.tinyim.core.protocol.response.GroupMessageResponsePacket;
 import com.github.byference.tinyim.core.protocol.response.LoginResponsePacket;
 import com.github.byference.tinyim.core.protocol.response.MessageResponsePacket;
 import com.github.byference.tinyim.core.util.SessionHolder;
@@ -43,15 +45,24 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         OffLineMessageStore messageStore = InMemoryOffLineMessageStore.getInstance();
         List<OffLineMessage> offLineMessages = messageStore.readMessage(username);
         offLineMessages.stream()
-                .sorted(Comparator.comparingLong(offLineMessage -> offLineMessage.getMessageReceivedTime().getTime()))
-                .map(offLineMessage -> {
-                    MessageResponsePacket offLineResponsePacket = new MessageResponsePacket();
-                    offLineResponsePacket.setFromUserId(offLineMessage.getFromUserId());
-                    offLineResponsePacket.setFromUserName(offLineMessage.getFromUserId());
-                    offLineResponsePacket.setMessage(offLineMessage.getContent());
-                    offLineResponsePacket.setSource(offLineMessage.getSource());
-                    return offLineResponsePacket;
-                }).forEach(offLineResponsePacket -> ctx.channel().writeAndFlush(offLineResponsePacket));
+                .sorted(Comparator.comparing(OffLineMessage::getMessageReceivedTime))
+                .forEach(offLineMessage -> {
+                    if (offLineMessage.getSource() == OffLineMessageSource.USER) {
+                        MessageResponsePacket userMessage = new MessageResponsePacket();
+                        userMessage.setFromUserId(offLineMessage.getFromUserId());
+                        userMessage.setFromUserName(offLineMessage.getFromUserId());
+                        userMessage.setMessage(offLineMessage.getMessage());
+                        userMessage.setSource(offLineMessage.getSource());
+                        ctx.channel().writeAndFlush(userMessage);
+                    } else if (offLineMessage.getSource() == OffLineMessageSource.GROUP) {
+                        GroupMessageResponsePacket groupMessage = new GroupMessageResponsePacket();
+                        groupMessage.setGroupName(offLineMessage.getGroupName());
+                        groupMessage.setMessage(offLineMessage.getMessage());
+                        groupMessage.setMessageReceivedTime(offLineMessage.getMessageReceivedTime());
+                        groupMessage.setSender(offLineMessage.getFromUserId());
+                        ctx.channel().writeAndFlush(groupMessage);
+                    }
+                });
         messageStore.removeMessage(username);
     }
 

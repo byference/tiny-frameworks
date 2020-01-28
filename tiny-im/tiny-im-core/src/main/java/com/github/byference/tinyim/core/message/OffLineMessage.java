@@ -4,7 +4,7 @@ import com.github.byference.tinyim.core.constant.OffLineMessageSource;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * OffLineMessage
@@ -23,14 +23,19 @@ public class OffLineMessage implements Serializable {
     private String fromUserId;
 
     /**
+     * group name
+     */
+    private String groupName;
+
+    /**
      * 消息内容
      */
-    private String content;
+    private String message;
 
     /**
      * 消息回复时间
      */
-    private Date messageReceivedTime;
+    private LocalDateTime messageReceivedTime;
 
     /**
      * 消息来源

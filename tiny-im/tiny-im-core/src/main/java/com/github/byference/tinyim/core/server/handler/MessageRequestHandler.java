@@ -11,7 +11,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * MessageRequestHandler
@@ -31,8 +31,8 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
             OffLineMessageStore messageStore = InMemoryOffLineMessageStore.getInstance();
             OffLineMessage offLineMessage = new OffLineMessage();
             offLineMessage.setFromUserId(SessionHolder.getCurrentUser(ctx.channel()));
-            offLineMessage.setContent(packet.getMessage());
-            offLineMessage.setMessageReceivedTime(new Date());
+            offLineMessage.setMessage(packet.getMessage());
+            offLineMessage.setMessageReceivedTime(LocalDateTime.now());
             offLineMessage.setSource(OffLineMessageSource.USER);
             messageStore.storeMessage(packet.getToUserId(), offLineMessage);
 

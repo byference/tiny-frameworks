@@ -8,8 +8,10 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -20,14 +22,17 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SessionHolder {
 
-    public static Map<String, Channel> sessionHolder = new ConcurrentHashMap<>();
+    private static Map<String, Channel> sessionHolder = new ConcurrentHashMap<>();
 
-    public static Map<String, ChannelGroup> groupHolder = new ConcurrentHashMap<>();
+    private static Map<String, ChannelGroup> groupHolder = new ConcurrentHashMap<>();
 
-    public static Map<String, GroupMetadata> groupMetadata = new ConcurrentHashMap<>();
+    private static Map<String, GroupMetadata> groupMetadata = new ConcurrentHashMap<>();
 
     private SessionHolder() {}
 
+    public static Set<String> getGroupMembers(String groupName) {
+        return new HashSet<>(groupMetadata.get(groupName).getGroupMembers());
+    }
 
     public static ChannelGroup getGroup(String groupName) {
         return groupHolder.get(groupName);
@@ -35,7 +40,11 @@ public class SessionHolder {
 
     public static void joinGroup(String groupName, List<String> users) {
         ChannelGroup channels = groupHolder.get(groupName);
-        users.stream().distinct().map(identify -> sessionHolder.get(identify)).forEach(channels::add);
+        users.stream()
+                .distinct()
+                .peek(user -> groupMetadata.get(groupName).getGroupMembers().add(user))
+                .map(identify -> sessionHolder.get(identify))
+                .forEach(channels::add);
     }
 
     public static void createGroup(String groupName, ChannelHandlerContext ctx) {
@@ -46,7 +55,11 @@ public class SessionHolder {
 
         // add channelGroup metadata
         GroupMetadata groupMetadata = new GroupMetadata();
-        groupMetadata.setGroupHolder(getCurrentUser(ctx.channel()));
+        String currentUser = getCurrentUser(ctx.channel());
+        groupMetadata.setGroupHolder(currentUser);
+        Set<String> groupMembers = new HashSet<>();
+        groupMembers.add(currentUser);
+        groupMetadata.setGroupMembers(groupMembers);
         SessionHolder.groupMetadata.put(groupName, groupMetadata);
     }
 

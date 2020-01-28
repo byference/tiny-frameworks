@@ -1,6 +1,7 @@
 package com.github.byference.tinyim.core.server.model;
 
 import lombok.Data;
+import java.util.Set;
 
 /**
  * ImGroupMetadata
@@ -15,5 +16,10 @@ public class GroupMetadata {
      * channel group holder
      */
     private String groupHolder;
+
+    /**
+     * group members
+     */
+    private Set<String> groupMembers;
 
 }
