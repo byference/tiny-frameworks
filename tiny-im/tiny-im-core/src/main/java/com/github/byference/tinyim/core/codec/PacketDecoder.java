@@ -38,6 +38,8 @@ public class PacketDecoder extends ByteToMessageDecoder {
         packetTypeMapper.put(Command.GROUP_NOTIFICATION_RESPONSE, GroupNotificationResponsePacket.class);
         packetTypeMapper.put(Command.GROUP_MESSAGE_REQUEST, GroupMessageRequestPacket.class);
         packetTypeMapper.put(Command.GROUP_MESSAGE_RESPONSE, GroupMessageResponsePacket.class);
+        packetTypeMapper.put(Command.HEARTBEAT_REQUEST, HeartBeatRequestPacket.class);
+        packetTypeMapper.put(Command.HEARTBEAT_RESPONSE, HeartBeatResponsePacket.class);
     }
 
     @Override

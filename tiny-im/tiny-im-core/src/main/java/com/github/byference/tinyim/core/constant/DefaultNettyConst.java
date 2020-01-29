@@ -18,4 +18,8 @@ public interface DefaultNettyConst {
 
     AttributeKey<String> TOKEN = AttributeKey.valueOf("Authorization");
 
+    int HEARTBEAT_INTERVAL = 30;
+
+    int READER_IDLE_TIME = 90;
+
 }

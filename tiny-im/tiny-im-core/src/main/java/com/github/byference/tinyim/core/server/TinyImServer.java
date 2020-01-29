@@ -33,9 +33,11 @@ public class TinyImServer {
                         protected void initChannel(NioSocketChannel channel) throws Exception {
 
                             channel.pipeline()
+                                    .addLast(new TinyImIdleStateHandler())
                                     .addLast(new TinyImSplits())
                                     .addLast(new PacketDecoder())
                                     .addLast(new LoginRequestHandler())
+                                    .addLast(new HeartBeatRequestHandler())
                                     .addLast(new AuthHandler())
                                     .addLast(new MessageRequestHandler())
                                     .addLast(new LogoutRequestHandler())
