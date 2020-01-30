@@ -1,6 +1,7 @@
 package com.github.byference.tinyim.core.server.handler;
 
 import com.github.byference.tinyim.core.util.SessionHolder;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -10,7 +11,12 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @author byference
  * @since 2020-01-25
  */
+@ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
+
+    public static AuthHandler INSTANCE = new AuthHandler();
+
+    private AuthHandler() {}
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

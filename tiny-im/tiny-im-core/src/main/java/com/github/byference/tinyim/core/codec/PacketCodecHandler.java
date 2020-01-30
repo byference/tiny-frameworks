@@ -1,29 +1,34 @@
 package com.github.byference.tinyim.core.codec;
 
 import com.alibaba.fastjson.JSON;
+import com.github.byference.tinyim.core.constant.DefaultNettyConst;
 import com.github.byference.tinyim.core.protocol.Command;
 import com.github.byference.tinyim.core.protocol.Packet;
 import com.github.byference.tinyim.core.protocol.request.*;
 import com.github.byference.tinyim.core.protocol.response.*;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageDecoder;
+import io.netty.handler.codec.MessageToMessageCodec;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * PacketDecoder
+ * PacketCodecHandler
  *
  * @author byference
- * @since 2020-01-01
+ * @since 2020-01-30
  */
-public class PacketDecoder extends ByteToMessageDecoder {
+@ChannelHandler.Sharable
+public class PacketCodecHandler extends MessageToMessageCodec<ByteBuf, Packet> {
+
+    public static PacketCodecHandler INSTANCE = new PacketCodecHandler();
 
     private final Map<Byte, Class<? extends Packet>> packetTypeMapper;
 
-    public PacketDecoder() {
+    private PacketCodecHandler() {
         packetTypeMapper = new HashMap<>();
         packetTypeMapper.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMapper.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
@@ -43,8 +48,19 @@ public class PacketDecoder extends ByteToMessageDecoder {
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
+    protected void encode(ChannelHandlerContext ctx, Packet packet, List<Object> out) throws Exception {
+        ByteBuf byteBuf = ctx.channel().alloc().ioBuffer();
+        byte[] data = JSON.toJSONBytes(packet);
+        byteBuf.writeInt(DefaultNettyConst.MAGIC_NUMBER);
+        byteBuf.writeByte(packet.getVersion());
+        byteBuf.writeByte(packet.getCommand());
+        byteBuf.writeInt(data.length);
+        byteBuf.writeBytes(data);
+        out.add(byteBuf);
+    }
 
+    @Override
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         // skip magic number
         in.skipBytes(4);
         // skip version

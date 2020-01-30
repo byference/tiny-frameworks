@@ -8,6 +8,7 @@ import com.github.byference.tinyim.core.protocol.request.MessageRequestPacket;
 import com.github.byference.tinyim.core.protocol.response.MessageResponsePacket;
 import com.github.byference.tinyim.core.util.SessionHolder;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -19,7 +20,12 @@ import java.time.LocalDateTime;
  * @author byference
  * @since 2020-01-04
  */
+@ChannelHandler.Sharable
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
+
+    public static MessageRequestHandler INSTANCE = new MessageRequestHandler();
+
+    private MessageRequestHandler() {}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket packet) {

@@ -1,8 +1,7 @@
 package com.github.byference.tinyim.core.client;
 
 import com.github.byference.tinyim.core.client.handler.*;
-import com.github.byference.tinyim.core.codec.PacketDecoder;
-import com.github.byference.tinyim.core.codec.PacketEncoder;
+import com.github.byference.tinyim.core.codec.PacketCodecHandler;
 import com.github.byference.tinyim.core.codec.TinyImSplits;
 import com.github.byference.tinyim.core.console.ConsoleCommandManager;
 import com.github.byference.tinyim.core.constant.DefaultNettyConst;
@@ -33,21 +32,18 @@ public class TinyImClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel channel) throws Exception {
-
                             channel.pipeline()
                                     .addLast(new TinyImSplits())
-                                    .addLast(new PacketDecoder())
                                     .addLast(new HeartBeatTimerHandler())
-                                    .addLast(new LoginResponseHandler())
-                                    .addLast(new HeartBeatResponseHandler())
-                                    .addLast(new MessageResponseHandler())
-                                    .addLast(new LogoutResponseHandler())
-                                    .addLast(new CreateGroupResponseHandler())
-                                    .addLast(new JoinGroupResponseHandler())
-                                    .addLast(new GroupNotificationResponseHandler())
-                                    .addLast(new GroupMessageResponseHandler())
-                                    .addLast(new PacketEncoder());
-
+                                    .addLast(PacketCodecHandler.INSTANCE)
+                                    .addLast(LoginResponseHandler.INSTANCE)
+                                    .addLast(HeartBeatResponseHandler.INSTANCE)
+                                    .addLast(MessageResponseHandler.INSTANCE)
+                                    .addLast(LogoutResponseHandler.INSTANCE)
+                                    .addLast(CreateGroupResponseHandler.INSTANCE)
+                                    .addLast(JoinGroupResponseHandler.INSTANCE)
+                                    .addLast(GroupNotificationResponseHandler.INSTANCE)
+                                    .addLast(GroupMessageResponseHandler.INSTANCE);
                             // 启动控制台输入
                             startConsoleInput(channel);
                         }

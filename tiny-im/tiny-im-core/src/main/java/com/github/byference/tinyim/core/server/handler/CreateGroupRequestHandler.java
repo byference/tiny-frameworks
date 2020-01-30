@@ -3,6 +3,7 @@ package com.github.byference.tinyim.core.server.handler;
 import com.github.byference.tinyim.core.protocol.request.CreateGroupRequestPacket;
 import com.github.byference.tinyim.core.protocol.response.CreateGroupResponsePacket;
 import com.github.byference.tinyim.core.util.SessionHolder;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +14,12 @@ import org.apache.commons.lang3.StringUtils;
  * @author byference
  * @since 2020-01-26
  */
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+
+    public static CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
+    private CreateGroupRequestHandler() {}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket packet) {

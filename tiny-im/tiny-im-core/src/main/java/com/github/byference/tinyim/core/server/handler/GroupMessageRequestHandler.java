@@ -8,6 +8,7 @@ import com.github.byference.tinyim.core.protocol.request.GroupMessageRequestPack
 import com.github.byference.tinyim.core.protocol.response.GroupMessageResponsePacket;
 import com.github.byference.tinyim.core.util.SessionHolder;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -19,7 +20,12 @@ import java.util.Set;
  * @author byference
  * @since 2020-01-27
  */
+@ChannelHandler.Sharable
 public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<GroupMessageRequestPacket> {
+
+    public static GroupMessageRequestHandler INSTANCE = new GroupMessageRequestHandler();
+
+    private GroupMessageRequestHandler() {}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRequestPacket requestPacket) {

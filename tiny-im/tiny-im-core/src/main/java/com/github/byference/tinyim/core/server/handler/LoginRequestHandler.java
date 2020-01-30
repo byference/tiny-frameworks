@@ -9,6 +9,7 @@ import com.github.byference.tinyim.core.protocol.response.GroupMessageResponsePa
 import com.github.byference.tinyim.core.protocol.response.LoginResponsePacket;
 import com.github.byference.tinyim.core.protocol.response.MessageResponsePacket;
 import com.github.byference.tinyim.core.util.SessionHolder;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -22,7 +23,12 @@ import java.util.UUID;
  * @author byference
  * @since 2020-01-01
  */
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
+    public static LoginRequestHandler INSTANCE = new LoginRequestHandler();
+
+    private LoginRequestHandler() {}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket packet) throws Exception {

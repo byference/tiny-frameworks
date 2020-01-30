@@ -4,6 +4,7 @@ import com.github.byference.tinyim.core.protocol.request.JoinGroupRequestPacket;
 import com.github.byference.tinyim.core.protocol.response.GroupNotificationResponsePacket;
 import com.github.byference.tinyim.core.protocol.response.JoinGroupResponsePacket;
 import com.github.byference.tinyim.core.util.SessionHolder;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -17,8 +18,12 @@ import java.util.List;
  * @author byference
  * @since 2020-01-27
  */
+@ChannelHandler.Sharable
 public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGroupRequestPacket> {
 
+    public static JoinGroupRequestHandler INSTANCE = new JoinGroupRequestHandler();
+
+    private JoinGroupRequestHandler() {}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JoinGroupRequestPacket requestPacket) {
