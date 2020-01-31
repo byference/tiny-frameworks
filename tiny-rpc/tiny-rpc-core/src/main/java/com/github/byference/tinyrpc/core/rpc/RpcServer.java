@@ -39,9 +39,9 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 
     private final Map<String, Object> rpcServiceBeans = new ConcurrentHashMap<>();
 
-    private static ExecutorService handleExecutor;
+    private static volatile ExecutorService handleExecutor;
 
-    private static ExecutorService listenerExecutor;
+    private static volatile ExecutorService listenerExecutor;
 
 
     /**

@@ -20,7 +20,7 @@ public class InMemoryOffLineMessageStore implements OffLineMessageStore {
 
     private final List<OffLineMessage> EMPTY_LIST = Collections.emptyList();
 
-    private static OffLineMessageStore INSTANCE;
+    private static volatile OffLineMessageStore INSTANCE;
 
     private InMemoryOffLineMessageStore() {}
 
