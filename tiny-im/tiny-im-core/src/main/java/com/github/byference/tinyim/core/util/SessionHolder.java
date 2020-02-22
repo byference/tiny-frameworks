@@ -40,10 +40,9 @@ public class SessionHolder {
 
     public static void joinGroup(String groupName, List<String> users) {
         ChannelGroup channels = groupHolder.get(groupName);
-        users.stream()
-                .distinct()
-                .peek(user -> groupMetadata.get(groupName).getGroupMembers().add(user))
-                .map(identify -> sessionHolder.get(identify))
+        users.stream().distinct()
+                .peek(groupMetadata.get(groupName).getGroupMembers()::add)
+                .map(sessionHolder::get)
                 .forEach(channels::add);
     }
 
