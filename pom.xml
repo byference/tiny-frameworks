@@ -19,6 +19,7 @@
         <module>tiny-transactional</module>
         <module>tiny-sso</module>
         <module>tiny-im</module>
+        <module>tiny-json-parser</module>
     </modules>
 
 
