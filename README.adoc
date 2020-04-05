@@ -10,7 +10,8 @@
 * [x] tiny-pagination
 * [x] tiny-transactional
 * [x] tiny-sso(by spring-security)
-* [ ] tiny-im
+* [x] tiny-im
+* [ ] tiny-json-parser
 * [ ] tiny-mapper
 * [ ] tiny-mq
 * [ ] tiny-discovery
@@ -44,4 +45,7 @@
 
 |tiny-sso
 |基于spring-security实现简易版单点登陆
+
+|tiny-im
+|简易版即时通讯
 |===
