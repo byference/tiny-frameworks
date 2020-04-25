@@ -1,5 +1,5 @@
 {
-  "id": "123456789",
+  "id": 123456789,
   "name": "超级管理员",
   "username": "admin",
   "password": "",
@@ -8,7 +8,7 @@
     "id": "admin",
     "name": "管理员",
     "describe": null,
-    "creatorId": "system",
+    "creatorId": -1,
     "createTime": 1497160610259,
     "permissions": [
       {
