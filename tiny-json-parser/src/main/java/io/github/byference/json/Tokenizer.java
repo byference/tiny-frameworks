@@ -46,6 +46,7 @@ public class Tokenizer {
                 case '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' -> tokens.add(readNumber(charReader));
             }
         }
+        tokens.add(new Token(TokenType.END_DOCUMENT, null));
         return tokens;
     }
 
