@@ -3,5 +3,13 @@
   "name": "超级管理员",
   "username": "admin",
   "password": "",
-  "avatar": "/avatar2.jpg"
+  "avatar": "/avatar2.jpg",
+  "role": {
+    "id": "admin",
+    "name": "管理员",
+    "describe": null,
+    "creatorId": -1,
+    "createTime": 1497160610259,
+    "permissions": null
+  }
 }

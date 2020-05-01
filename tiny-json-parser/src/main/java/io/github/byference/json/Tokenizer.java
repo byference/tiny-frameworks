@@ -79,7 +79,7 @@ public class Tokenizer {
     }
 
     private Token readNull(CharReader charReader) {
-        if (charReader.next() == 'u' && charReader.next() == 'l' && charReader.next() == 'l') {
+        if (charReader.peek() == 'n' && charReader.next() == 'u' && charReader.next() == 'l' && charReader.next() == 'l') {
             return new Token(TokenType.NULL, "null");
         }
         throw new IllegalArgumentException("Invalid json string");
@@ -87,10 +87,10 @@ public class Tokenizer {
 
     private Token readBoolean(CharReader charReader) {
         if (charReader.peek() == 't' && charReader.next() == 'r' && charReader.next() == 'u' && charReader.next() == 'e') {
-            return new Token(TokenType.NULL, "true");
+            return new Token(TokenType.BOOLEAN, "true");
         }
         if (charReader.peek() == 'f' && charReader.next() == 'a' && charReader.next() == 'l' && charReader.next() == 's' && charReader.next() == 'e') {
-            return new Token(TokenType.NULL, "false");
+            return new Token(TokenType.BOOLEAN, "false");
         }
         throw new IllegalArgumentException("Invalid json string");
     }
