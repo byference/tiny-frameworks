@@ -10,6 +10,29 @@
     "describe": null,
     "creatorId": -1,
     "createTime": 1497160610259,
-    "permissions": null
-  }
+    "permissions": [
+      {
+        "roleId": "admin",
+        "permissionId": "dashboard",
+        "permissionName": "仪表盘",
+        "actions": [
+          {
+            "action": "add",
+            "defaultCheck": true,
+            "describe": "新增"
+          },
+          {
+            "action": "query",
+            "defaultCheck": false,
+            "describe": "查询"
+          }
+        ]
+      }
+    ]
+  },
+  "emptyArray": [
+    [],
+    []
+  ],
+  "emptyObject": {}
 }

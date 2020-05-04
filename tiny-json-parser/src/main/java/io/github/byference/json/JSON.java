@@ -1,5 +1,6 @@
 package io.github.byference.json;
 
+import io.github.byference.json.modole.JsonArray;
 import io.github.byference.json.modole.JsonObject;
 import io.github.byference.json.modole.Token;
 
@@ -27,8 +28,7 @@ public class JSON {
 
 
     /**
-     * 语法分析
-     * TODO parse JsonArray
+     * parseJsonObject
      */
     public JsonObject parseJsonObject() {
 
@@ -49,10 +49,12 @@ public class JSON {
                     checkExpectToken(tokenType, expectToken);
                     if (key != null) {
                         jsonObject.put(key, parseJsonObject());
+                        expectToken = SEP_COMMA.getCode() | END_OBJECT.getCode();
+                    } else {
+                        expectToken = STRING.getCode() | END_OBJECT.getCode();
                     }
-                    expectToken = STRING.getCode() | END_OBJECT.getCode();
                 }
-                case END_OBJECT -> {
+                case END_OBJECT, END_DOCUMENT -> {
                     checkExpectToken(tokenType, expectToken);
                     return jsonObject;
                 }
@@ -84,6 +86,11 @@ public class JSON {
                     jsonObject.put(key, Boolean.valueOf(tokenValue));
                     expectToken = SEP_COMMA.getCode() | END_OBJECT.getCode();
                 }
+                case BEGIN_ARRAY -> {
+                    checkExpectToken(tokenType, expectToken);
+                    jsonObject.put(key, parseJsonArray());
+                    expectToken = SEP_COMMA.getCode() | END_OBJECT.getCode();
+                }
                 case SEP_COLON -> {
                     checkExpectToken(tokenType, expectToken);
                     expectToken = NULL.getCode() | NUMBER.getCode() | BOOLEAN.getCode() | STRING.getCode() | BEGIN_OBJECT.getCode() | BEGIN_ARRAY.getCode();
@@ -93,15 +100,50 @@ public class JSON {
                     expectToken = STRING.getCode();
 
                 }
-                case END_DOCUMENT -> {
-                    checkExpectToken(tokenType, expectToken);
-                    jsonObject.remove(null);
-                    return jsonObject;
-                }
                 default -> throw new IllegalArgumentException("Parse error, invalid Json");
             }
         }
         return jsonObject;
+    }
+
+
+    /**
+     * parseJsonArray
+     */
+    public JsonArray parseJsonArray() {
+
+        JsonArray jsonArray = new JsonArray();
+        int expectToken = -1;
+        Token token = null;
+
+        while (tokens.hasNext()) {
+
+            initPreviousToken(token);
+            token = tokens.next();
+            TokenType tokenType = token.getTokenType();
+            switch (tokenType) {
+                case BEGIN_OBJECT -> {
+                    checkExpectToken(tokenType, expectToken);
+                    jsonArray.add(parseJsonObject());
+                    expectToken = SEP_COMMA.getCode() | END_ARRAY.getCode();
+                }
+                case BEGIN_ARRAY -> {
+                    checkExpectToken(tokenType, expectToken);
+                    jsonArray.add(parseJsonArray());
+                    expectToken = SEP_COMMA.getCode() | END_OBJECT.getCode() | END_ARRAY.getCode() | END_DOCUMENT.getCode();
+                }
+                case SEP_COMMA -> {
+                    checkExpectToken(tokenType, expectToken);
+                    expectToken = BEGIN_OBJECT.getCode() | BEGIN_ARRAY.getCode();
+                }
+                case END_ARRAY, END_DOCUMENT -> {
+                    checkExpectToken(tokenType, expectToken);
+                    return jsonArray;
+                }
+                default -> throw new IllegalArgumentException("Parse error, invalid Json");
+            }
+        }
+        return jsonArray;
     }
 
     private void initPreviousToken(Token token) {
