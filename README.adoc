@@ -11,7 +11,8 @@
 * [x] tiny-transactional
 * [x] tiny-sso(by spring-security)
 * [x] tiny-im
-* [ ] tiny-json-parser
+* [x] tiny-json-parser
+* [ ] tiny-thread-pool
 * [ ] tiny-mapper
 * [ ] tiny-mq
 * [ ] tiny-discovery
