@@ -49,4 +49,7 @@
 
 |tiny-im
 |简易版即时通讯
+
+|tiny-json-parser
+|简易版JSON解析器
 |===
