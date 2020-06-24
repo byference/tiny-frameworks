@@ -19,7 +19,6 @@
         <protostuff.version>1.1.3</protostuff.version>
         <netty.version>4.1.42.Final</netty.version>
         <lombok.version>1.18.6</lombok.version>
-        <guava.version>20.0</guava.version>
         <objenesis.version>3.0.1</objenesis.version>
         <fastjson.version>1.2.55</fastjson.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
