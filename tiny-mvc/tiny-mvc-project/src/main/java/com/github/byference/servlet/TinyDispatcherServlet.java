@@ -3,6 +3,7 @@ package com.github.byference.servlet;
 
 import com.github.byference.annotation.*;
 import com.github.byference.handler.HandlerAdapter;
+import reactor.core.publisher.Mono;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,11 +14,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.github.byference.util.DefaultPrintUtil.printError;
+import static com.github.byference.util.DefaultPrintUtil.println;
 
 /**
  * TinyDispatcherServlet
@@ -26,7 +31,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2019/03/16
  */
 public class TinyDispatcherServlet extends HttpServlet {
-
 
     private Properties properties = new Properties();
 
@@ -62,7 +66,6 @@ public class TinyDispatcherServlet extends HttpServlet {
 
     }
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -84,24 +87,33 @@ public class TinyDispatcherServlet extends HttpServlet {
     private void tinyDispatcherServlet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         PrintWriter out = response.getWriter();
-        String uri = request.getRequestURI();
-        if (!handlerMapping.containsKey(uri)) {
-            out.write("404: not found!");
-            return;
-        }
+        Mono.just(request.getRequestURI()).doOnNext(uri -> {
+            if (Objects.equals("/favicon.ico", uri)) {
+                throw new IllegalArgumentException("no favicon.ico found!");
+            }
+            if (!handlerMapping.containsKey(uri)) {
+                throw new IllegalArgumentException("404: not found!");
+            }
+        }).map(uri -> {
+            Method method = handlerMapping.get(uri);
+            HandlerAdapter ha = (HandlerAdapter) beans.get("paramHandlerAdapter");
+            Object[] args = ha.handle(request, response, method, beans);
 
-        Method method = handlerMapping.get(uri);
-        HandlerAdapter ha = (HandlerAdapter) beans.get("paramHandlerAdapter");
-        Object[] args = ha.handle(request, response, method, beans);
-
-        try {
-            Object result = method.invoke(controllerMap.get(uri), args);
+            Object result;
+            try {
+                result = method.invoke(controllerMap.get(uri), args);
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
+            }
+            return result;
+        }).doOnNext(result -> {
             out.write(String.valueOf(result));
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+            println("success");
+        }).doOnError(e -> {
+            printError(e.getMessage());
+            out.write(e.getMessage());
+        }).subscribe();
     }
-
 
     private void tinyHandlerMapping() {
 
@@ -178,7 +190,6 @@ public class TinyDispatcherServlet extends HttpServlet {
 
     }
 
-
     private void instance() {
         if (!classNames.isEmpty()) {
             classNames.forEach(name -> {
@@ -199,7 +210,6 @@ public class TinyDispatcherServlet extends HttpServlet {
             });
         }
     }
-
 
     private void loadConfig(String config) {
 
@@ -231,6 +241,5 @@ public class TinyDispatcherServlet extends HttpServlet {
         }
         return String.valueOf(chars);
     }
-
 
 }
