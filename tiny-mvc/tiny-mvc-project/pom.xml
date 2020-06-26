@@ -11,6 +11,7 @@
         <artifactId>tiny-mvc</artifactId>
         <groupId>com.github.byference</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <properties>
@@ -21,14 +22,11 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -46,6 +44,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

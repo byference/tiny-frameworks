@@ -8,8 +8,8 @@
     <packaging>pom</packaging>
 
     <parent>
-        <artifactId>tiny-rpc</artifactId>
         <groupId>com.github.byference</groupId>
+        <artifactId>tiny-rpc</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

@@ -11,12 +11,11 @@
         <artifactId>tiny-frameworks</artifactId>
         <groupId>com.github.byference</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modules>
         <module>tiny-mvc-project</module>
     </modules>
-
-
 
 </project>
