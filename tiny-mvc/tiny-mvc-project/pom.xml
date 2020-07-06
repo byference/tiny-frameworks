@@ -8,21 +8,13 @@
     <packaging>war</packaging>
 
     <parent>
-        <artifactId>tiny-mvc</artifactId>
         <groupId>com.github.byference</groupId>
+        <artifactId>tiny-mvc</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -32,9 +24,7 @@
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
-            <version>3.3.6.RELEASE</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -52,6 +42,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

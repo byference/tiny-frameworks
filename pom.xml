@@ -35,12 +35,13 @@
         <fastjson.version>1.2.55</fastjson.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <servlet-api.version>4.0.1</servlet-api.version>
-        <mysql-connector.version>8.0.13</mysql-connector.version>
+        <mysql-connector.version>8.0.20</mysql-connector.version>
         <dom4j.version>1.6.1</dom4j.version>
         <HikariCP.version>3.3.1</HikariCP.version>
         <mybatis-starter.version>2.0.1</mybatis-starter.version>
         <guava.version>29.0-jre</guava.version>
         <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
+        <reactor.version>3.3.6.RELEASE</reactor.version>
     </properties>
 
 
@@ -130,6 +131,12 @@
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
                 <version>${objenesis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-core</artifactId>
+                <version>${reactor.version}</version>
             </dependency>
 
         </dependencies>
