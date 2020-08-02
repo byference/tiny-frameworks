@@ -20,6 +20,7 @@
         <module>tiny-sso</module>
         <module>tiny-im</module>
         <module>tiny-json-parser</module>
+        <module>tiny-reactor</module>
     </modules>
 
 
@@ -42,6 +43,7 @@
         <guava.version>29.0-jre</guava.version>
         <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
         <reactor.version>3.3.6.RELEASE</reactor.version>
+        <groovy.version>3.0.5</groovy.version>
     </properties>
 
 
@@ -137,6 +139,12 @@
                 <groupId>io.projectreactor</groupId>
                 <artifactId>reactor-core</artifactId>
                 <version>${reactor.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}</version>
             </dependency>
 
         </dependencies>
