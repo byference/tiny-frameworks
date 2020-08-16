@@ -2,6 +2,7 @@ package io.github.byference.reactor
 
 import java.util.concurrent.Flow
 import java.util.function.Function
+import java.util.function.Predicate
 
 /**
  * Flux
@@ -17,5 +18,9 @@ abstract class Flux<T> implements Flow.Publisher<T> {
 
     Flux map(Function mapper) {
         return new FluxMap(this, mapper)
+    }
+
+    Flux<T> filter(Predicate<T> predicate) {
+        return new FluxFilter(this, predicate)
     }
 }
