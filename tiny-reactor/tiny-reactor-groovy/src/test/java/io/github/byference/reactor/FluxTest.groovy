@@ -14,7 +14,7 @@ class FluxTest {
     @Test
     void fluxArrayTest() {
 
-        Flux.just(1, 2, 3, 4, 5, 6).subscribe(new Flow.Subscriber<Integer>() {
+        Flux.just(1, 2, 3, 4, 5, 6).map(i -> i * i).subscribe(new Flow.Subscriber<Integer>() {
             @Override
             void onSubscribe(Flow.Subscription subscription) {
                 println ">> onSubscribe ..."
