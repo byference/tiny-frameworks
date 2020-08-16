@@ -12,9 +12,9 @@
 * [x] tiny-sso(by spring-security)
 * [x] tiny-im
 * [x] tiny-json-parser
-* [ ] tiny-reactor
-* [ ] tiny-thread-pool
+* [x] tiny-reactor
 * [ ] tiny-mapper
+* [ ] tiny-thread-pool
 * [ ] tiny-mq
 * [ ] tiny-discovery
 * [ ] tiny-gateway
@@ -55,5 +55,5 @@
 |简易版JSON解析器
 
 |tiny-reactor
-|简易版 reactive streams 实现
+|简易版 reactive streams实现
 |===
