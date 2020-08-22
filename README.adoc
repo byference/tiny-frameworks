@@ -56,4 +56,7 @@
 
 |tiny-reactor
 |简易版 reactive streams实现
+
+|tiny-mapper
+|简易版 通用mapper实现
 |===
