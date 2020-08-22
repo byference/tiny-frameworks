@@ -21,6 +21,7 @@
         <module>tiny-im</module>
         <module>tiny-json-parser</module>
         <module>tiny-reactor</module>
+        <module>tiny-mapper</module>
     </modules>
 
 
