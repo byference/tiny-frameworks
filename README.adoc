@@ -13,11 +13,11 @@
 * [x] tiny-im
 * [x] tiny-json-parser
 * [x] tiny-reactor
-* [ ] tiny-mapper
+* [x] tiny-mapper
+* [ ] tiny-gateway
 * [ ] tiny-thread-pool
 * [ ] tiny-mq
 * [ ] tiny-discovery
-* [ ] tiny-gateway
 * [ ] tiny-spring
 
 
