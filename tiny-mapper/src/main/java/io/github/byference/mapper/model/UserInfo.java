@@ -1,4 +1,4 @@
-package io.github.byference.mapper.test.model;
+package io.github.byference.mapper.model;
 
 import io.github.byference.mapper.core.FieldName;
 import io.github.byference.mapper.core.Id;

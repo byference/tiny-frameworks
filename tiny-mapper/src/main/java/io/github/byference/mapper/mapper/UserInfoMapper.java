@@ -1,7 +1,7 @@
-package io.github.byference.mapper.test.mapper;
+package io.github.byference.mapper.mapper;
 
 import io.github.byference.mapper.core.BaseMapper;
-import io.github.byference.mapper.test.model.UserInfo;
+import io.github.byference.mapper.model.UserInfo;
 
 /**
  * UserInfoMapper

@@ -2,5 +2,5 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://byference.com:3306/samples?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: root
+    username: samples
+    password: [PROTECT]
