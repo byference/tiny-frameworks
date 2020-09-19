@@ -14,11 +14,11 @@
 * [x] tiny-json-parser
 * [x] tiny-reactor
 * [x] tiny-mapper
+* [ ] tiny-spring
 * [ ] tiny-gateway
 * [ ] tiny-thread-pool
 * [ ] tiny-mq
 * [ ] tiny-discovery
-* [ ] tiny-spring
 
 
 
@@ -59,4 +59,7 @@
 
 |tiny-mapper
 |简易版 通用mapper实现
+
+|tiny-spring
+|简易版 spring实现
 |===
