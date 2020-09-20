@@ -22,6 +22,7 @@
         <module>tiny-json-parser</module>
         <module>tiny-reactor</module>
         <module>tiny-mapper</module>
+        <module>tiny-spring</module>
     </modules>
 
 
