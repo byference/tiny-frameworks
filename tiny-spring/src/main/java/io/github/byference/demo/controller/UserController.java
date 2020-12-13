@@ -16,5 +16,11 @@ public class UserController {
     @TinyAutowired
     private UserService userService;
 
+    /**
+     * Echo
+     */
+    public String echo() {
+        return userService.echo();
+    }
 
 }

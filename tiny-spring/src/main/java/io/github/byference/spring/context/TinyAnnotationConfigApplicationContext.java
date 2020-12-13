@@ -1,14 +1,8 @@
 package io.github.byference.spring.context;
 
-import io.github.byference.spring.beans.TinyBeanWrapper;
 import io.github.byference.spring.beans.factory.config.TinyBeanDefinition;
 import io.github.byference.spring.beans.support.TinyAnnotatedBeanDefinitionReader;
-import io.github.byference.spring.stereotype.TinyAutowired;
-import io.github.byference.spring.stereotype.TinyComponent;
-import io.github.byference.spring.util.StringUtil;
-import lombok.SneakyThrows;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,11 +17,9 @@ public class TinyAnnotationConfigApplicationContext extends TinyAbstractApplicat
 
     private final TinyAnnotatedBeanDefinitionReader reader;
 
-    private final Map<String, TinyBeanWrapper> factoryBeanObjectCache = new ConcurrentHashMap<>();
-
-    private final Map<String, Object> factoryBeanInstanceCache = new ConcurrentHashMap<>();
-
     private final Map<String, TinyBeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
+
+    private TinyDefaultListableBeanFactory beanFactory;
 
     public TinyAnnotationConfigApplicationContext() {
         this.reader = new TinyAnnotatedBeanDefinitionReader();
@@ -56,6 +48,7 @@ public class TinyAnnotationConfigApplicationContext extends TinyAbstractApplicat
             }
             beanDefinitionMap.put(tinyBeanDefinition.getFactoryBeanName(), tinyBeanDefinition);
         }
+        beanFactory = new TinyDefaultListableBeanFactory(beanDefinitionMap);
     }
 
     private void doAutowired() {
@@ -64,56 +57,12 @@ public class TinyAnnotationConfigApplicationContext extends TinyAbstractApplicat
 
     @Override
     public <T> T getBean(Class<T> requiredType) {
-        return this.getBean(StringUtil.toLowFirstCase(requiredType.getSimpleName()));
+        return beanFactory.getBean(requiredType);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T> T getBean(String beanName) {
-        TinyBeanWrapper tinyBeanWrapper = factoryBeanObjectCache.get(beanName);
-
-        if (tinyBeanWrapper == null) {
-            TinyBeanDefinition tinyBeanDefinition = beanDefinitionMap.get(beanName);
-            // 实例化
-            Object instance = instantiateBean(tinyBeanDefinition);
-            factoryBeanInstanceCache.put(beanName, instance);
-
-            // beanWrapper
-            tinyBeanWrapper = new TinyBeanWrapper(instance);
-            factoryBeanObjectCache.put(beanName, tinyBeanWrapper);
-
-            // populateBean
-            populateBean(instance);
-        }
-
-        // return wrapper instance
-        return (T) tinyBeanWrapper.getInstance();
+        return beanFactory.getBean(beanName);
     }
 
-    @SneakyThrows
-    private void populateBean(Object instance) {
-        Class<?> clazz = instance.getClass();
-        // handle TinyComponent only
-        if (!clazz.isAnnotationPresent(TinyComponent.class)) {
-            return;
-        }
-
-        final Field[] declaredFields = clazz.getDeclaredFields();
-        for (Field field : declaredFields) {
-            if (field.isAnnotationPresent(TinyAutowired.class)) {
-                TinyAutowired tinyAutowired = field.getAnnotation(TinyAutowired.class);
-                String tinyAutowiredBeanName = tinyAutowired.value().trim();
-                if (StringUtil.isEmpty(tinyAutowiredBeanName)) {
-                    tinyAutowiredBeanName = StringUtil.toLowFirstCase(field.getType().getSimpleName());
-                }
-                field.setAccessible(true);
-                field.set(instance, getBean(tinyAutowiredBeanName));
-            }
-        }
-    }
-
-    @SneakyThrows
-    private Object instantiateBean(TinyBeanDefinition tinyBeanDefinition) {
-        return tinyBeanDefinition.getSourceClass().getDeclaredConstructor().newInstance();
-    }
 }

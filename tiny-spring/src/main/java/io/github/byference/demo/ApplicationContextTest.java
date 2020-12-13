@@ -24,7 +24,7 @@ public class ApplicationContextTest {
         applicationContext.refresh();
 
         UserController userController = applicationContext.getBean(UserController.class);
-        System.out.println(userController);
+        System.out.println(userController.echo());
 
         applicationContext.close();
     }
