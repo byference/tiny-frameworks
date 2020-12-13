@@ -11,9 +11,12 @@ import lombok.Data;
 @Data
 public class TinyBeanWrapper {
 
+    private String beanName;
+
     private Object instance;
 
-    public TinyBeanWrapper(Object instance) {
+    public TinyBeanWrapper(String beanName, Object instance) {
+        this.beanName = beanName;
         this.instance = instance;
     }
 }

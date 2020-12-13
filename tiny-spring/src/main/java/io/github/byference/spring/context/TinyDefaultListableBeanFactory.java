@@ -1,7 +1,8 @@
 package io.github.byference.spring.context;
 
 import io.github.byference.spring.beans.TinyBeanWrapper;
-import io.github.byference.spring.beans.factory.TinyBeanFactory;
+import io.github.byference.spring.beans.TinyBeansException;
+import io.github.byference.spring.beans.factory.TinyListableBeanFactory;
 import io.github.byference.spring.beans.factory.config.TinyBeanDefinition;
 import io.github.byference.spring.stereotype.TinyAutowired;
 import io.github.byference.spring.stereotype.TinyComponent;
@@ -9,8 +10,10 @@ import io.github.byference.spring.util.StringUtil;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * TinyDefaultListableBeanFactory
@@ -18,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author byference
  * @since 2020-09-26
  */
-public class TinyDefaultListableBeanFactory implements TinyBeanFactory {
+public class TinyDefaultListableBeanFactory implements TinyListableBeanFactory {
 
     private final Map<String, TinyBeanWrapper> factoryBeanObjectCache = new ConcurrentHashMap<>();
 
@@ -48,7 +51,7 @@ public class TinyDefaultListableBeanFactory implements TinyBeanFactory {
             factoryBeanInstanceCache.put(beanName, instance);
 
             // beanWrapper
-            tinyBeanWrapper = new TinyBeanWrapper(instance);
+            tinyBeanWrapper = new TinyBeanWrapper(beanName, instance);
             factoryBeanObjectCache.put(beanName, tinyBeanWrapper);
 
             // populateBean
@@ -84,5 +87,31 @@ public class TinyDefaultListableBeanFactory implements TinyBeanFactory {
     @SneakyThrows
     private Object instantiateBean(TinyBeanDefinition tinyBeanDefinition) {
         return tinyBeanDefinition.getSourceClass().getDeclaredConstructor().newInstance();
+    }
+
+    @Override
+    public String[] getBeanDefinitionNames() {
+        return beanDefinitionMap.keySet().toArray(new String[0]);
+    }
+
+    @Override
+    public String[] getBeanNamesForType(Class<?> type) {
+        if (type == null) {
+            return new String[0];
+        }
+        return factoryBeanObjectCache.values().stream()
+                .filter(beanWrapper -> type.isAssignableFrom(beanWrapper.getInstance().getClass()))
+                .map(TinyBeanWrapper::getBeanName)
+                .toArray(String[]::new);
+    }
+
+    @Override
+    public <T> Map<String, T> getBeansOfType(Class<T> type) throws TinyBeansException {
+        if (type == null) {
+            return Collections.emptyMap();
+        }
+        return factoryBeanObjectCache.values().stream()
+                .filter(beanWrapper -> type.isAssignableFrom(beanWrapper.getInstance().getClass()))
+                .collect(Collectors.toMap(TinyBeanWrapper::getBeanName, beanWrapper -> (T) beanWrapper));
     }
 }

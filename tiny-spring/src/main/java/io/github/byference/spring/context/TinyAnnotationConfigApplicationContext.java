@@ -1,5 +1,6 @@
 package io.github.byference.spring.context;
 
+import io.github.byference.spring.beans.TinyBeansException;
 import io.github.byference.spring.beans.factory.config.TinyBeanDefinition;
 import io.github.byference.spring.beans.support.TinyAnnotatedBeanDefinitionReader;
 
@@ -69,12 +70,27 @@ public class TinyAnnotationConfigApplicationContext extends TinyAbstractApplicat
     }
 
     private void beanPostProcessor() {
-        beanDefinitionMap.forEach((beanName, beanDefinition) -> {
-            final Object bean = getBean(beanName);
+        for (String beanDefinitionName : beanFactory.getBeanDefinitionNames()) {
+            final Object bean = getBean(beanDefinitionName);
             if (bean instanceof TinyApplicationContextAware) {
                 TinyApplicationContextAware tinyApplicationContextAware = (TinyApplicationContextAware) bean;
                 tinyApplicationContextAware.setTinyApplicationContext(this);
             }
-        });
+        }
+    }
+
+    @Override
+    public String[] getBeanDefinitionNames() {
+        return beanFactory.getBeanDefinitionNames();
+    }
+
+    @Override
+    public String[] getBeanNamesForType(Class<?> type) {
+        return beanFactory.getBeanNamesForType(type);
+    }
+
+    @Override
+    public <T> Map<String, T> getBeansOfType(Class<T> type) throws TinyBeansException {
+        return beanFactory.getBeansOfType(type);
     }
 }
