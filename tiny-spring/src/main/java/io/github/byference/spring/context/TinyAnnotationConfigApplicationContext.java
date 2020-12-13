@@ -39,6 +39,19 @@ public class TinyAnnotationConfigApplicationContext extends TinyAbstractApplicat
 
         // 依赖注入
         doAutowired();
+
+        // 后置处理
+        beanPostProcessor();
+    }
+
+    @Override
+    public <T> T getBean(Class<T> requiredType) {
+        return beanFactory.getBean(requiredType);
+    }
+
+    @Override
+    public <T> T getBean(String beanName) {
+        return beanFactory.getBean(beanName);
     }
 
     private void doRegisterBeanDefinition(List<TinyBeanDefinition> tinyBeanDefinitions) {
@@ -55,14 +68,13 @@ public class TinyAnnotationConfigApplicationContext extends TinyAbstractApplicat
         beanDefinitionMap.forEach((beanName, tinyBeanDefinition) -> getBean(tinyBeanDefinition.getSourceClass()));
     }
 
-    @Override
-    public <T> T getBean(Class<T> requiredType) {
-        return beanFactory.getBean(requiredType);
+    private void beanPostProcessor() {
+        beanDefinitionMap.forEach((beanName, beanDefinition) -> {
+            final Object bean = getBean(beanName);
+            if (bean instanceof TinyApplicationContextAware) {
+                TinyApplicationContextAware tinyApplicationContextAware = (TinyApplicationContextAware) bean;
+                tinyApplicationContextAware.setTinyApplicationContext(this);
+            }
+        });
     }
-
-    @Override
-    public <T> T getBean(String beanName) {
-        return beanFactory.getBean(beanName);
-    }
-
 }
