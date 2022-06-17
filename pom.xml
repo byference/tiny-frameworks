@@ -35,7 +35,7 @@
         <netty.version>4.1.42.Final</netty.version>
         <lombok.version>1.18.6</lombok.version>
         <objenesis.version>3.0.1</objenesis.version>
-        <fastjson.version>1.2.55</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <mysql-connector.version>8.0.20</mysql-connector.version>
