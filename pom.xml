@@ -45,7 +45,7 @@
         <guava.version>29.0-jre</guava.version>
         <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
         <reactor.version>3.3.6.RELEASE</reactor.version>
-        <groovy.version>3.0.5</groovy.version>
+        <groovy.version>3.0.7</groovy.version>
     </properties>
 
 
