@@ -42,7 +42,7 @@
         <dom4j.version>1.6.1</dom4j.version>
         <HikariCP.version>3.3.1</HikariCP.version>
         <mybatis-starter.version>2.0.1</mybatis-starter.version>
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
         <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
         <reactor.version>3.3.6.RELEASE</reactor.version>
         <groovy.version>3.0.7</groovy.version>
